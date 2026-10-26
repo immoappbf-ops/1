@@ -30,6 +30,62 @@
     @media(max-width:700px){.container{width:min(100% - 28px,560px)}.topbar-inner{min-height:32px;font-size:10px}.topbar-inner span:last-child{display:none}.nav{height:67px}.brand-mark{width:40px;height:40px}.brand-name{font-size:15px}.navlinks{display:none}.nav-actions .btn{display:none}.mobile-menu{display:grid;place-items:center}.hero{padding:29px 0 28px}.hero-grid{grid-template-columns:1fr;gap:24px}.hero h1{font-size:43px;letter-spacing:-2px;margin:16px 0}.hero-copy{font-size:13px;line-height:1.75}.hero-actions .btn{flex:1}.hero-visual{min-height:310px;margin:0 4px}.hero-photo{inset:0 12px 18px}.float-one{left:-5px;top:25px}.float-two{right:-2px;bottom:0}.float-card{padding:10px 12px}.float-card .mini-icon{width:33px;height:33px}.float-card strong{font-size:11px}.float-card small{font-size:9px}.hero-photo-caption strong{font-size:18px}.search-wrap{margin-top:12px}.search-panel{padding:13px;gap:9px;border-radius:16px}.field label{font-size:9px}.field input,.field select{min-height:42px;font-size:12px;padding:9px}.search-btn{font-size:12px;padding:10px}.section{padding:52px 0}.section-head{align-items:flex-start}.section h2{font-size:28px}.section-sub{font-size:12px}.category-grid{gap:9px}.category{padding:13px 11px;gap:10px;border-radius:14px}.category-icon{width:39px;height:39px;font-size:19px;border-radius:12px}.category strong{font-size:11px}.category small{font-size:10px}.property-grid{grid-template-columns:1fr;gap:16px}.property-image{height:235px}.property-content{padding:16px}.property-title{font-size:17px}.listing-topline{align-items:flex-start}.sort-select{max-width:145px}.why-grid{grid-template-columns:1fr;gap:26px}.why-visual{min-height:280px}.why-grid .section-head{margin-bottom:0}.cta-section{padding-bottom:52px}.cta-box{padding:28px 22px;display:block;border-radius:20px}.cta-box h2{font-size:28px}.cta-box p{font-size:12px;margin-bottom:20px}.cta-box .btn{width:100%}.contact-grid{grid-template-columns:1fr;gap:15px}.contact-info,.contact-form{padding:20px}.contact-form{grid-template-columns:1fr}.contact-form .field.full,.contact-form .btn,.form-note{grid-column:1}.footer-main{display:block}.footer-links{margin-top:23px;gap:14px}.footer-bottom{flex-direction:column;gap:6px}.whatsapp-float{right:13px;bottom:14px;padding:10px 13px;font-size:11px}.modal{padding:10px}.modal-image{height:220px}.modal-body{padding:18px}.modal-body h2{font-size:22px}.modal-actions .btn{flex:1}.order-form{grid-template-columns:1fr}.order-form .btn,.order-form .form-note{grid-column:1}.mobile-nav.open{display:flex;position:absolute;left:0;right:0;top:67px;background:white;padding:12px 18px 18px;box-shadow:0 15px 25px #173c2b12;flex-direction:column;gap:0;border-bottom:1px solid var(--line)}.mobile-nav a{padding:12px 4px;border-bottom:1px solid #edf1ee;font-size:13px;font-weight:700}}
     @media(min-width:701px){.mobile-nav{display:none!important}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+
+    /* APP-LIKE PWA LAYOUT: même présentation mobile sur ordinateur et téléphone */
+    html{background:#e9eeeb}
+    body{width:100%;max-width:480px;min-height:100vh;margin:0 auto;background:var(--bg);box-shadow:0 0 60px rgba(18,61,50,.12);padding-bottom:82px;overflow-x:hidden}
+    .container{width:calc(100% - 28px);max-width:none}
+    .topbar{display:none}
+    .nav{height:66px}
+    .navlinks,.nav-actions .btn{display:none!important}
+    .mobile-menu{display:grid;place-items:center}
+    .hero{padding:25px 0 22px}
+    .hero-grid{grid-template-columns:1fr;gap:20px}
+    .hero h1{font-size:39px;letter-spacing:-1.9px}
+    .hero-copy{font-size:13px}
+    .hero-visual{min-height:270px;margin:0 2px}
+    .hero-photo{inset:0 10px 16px}
+    .float-card{padding:9px 10px}
+    .float-card .mini-icon{width:31px;height:31px}
+    .float-card strong{font-size:10px}
+    .float-card small{font-size:9px}
+    .search-wrap{margin-top:12px}
+    .search-panel{grid-template-columns:1fr 1fr;padding:12px;gap:9px}
+    .search-panel .field:first-child{grid-column:1/-1}
+    .search-btn{grid-column:1/-1;width:100%}
+    .section{padding:40px 0}
+    .section h2{font-size:27px}
+    .section-head{align-items:flex-start;flex-direction:column;gap:12px}
+    .category-grid{grid-template-columns:1fr 1fr;gap:9px}
+    .category{padding:12px 10px;gap:8px}
+    .category-icon{width:36px;height:36px;font-size:18px}
+    .category strong{font-size:10px}
+    .category small{font-size:9px}
+    .property-grid{grid-template-columns:1fr;gap:14px}
+    .property-image{height:225px}
+    .why-grid{grid-template-columns:1fr;gap:22px}
+    .why-visual{min-height:250px}
+    .cta-section{padding-bottom:40px}
+    .cta-box{padding:25px 20px;display:block}
+    .cta-box h2{font-size:27px}
+    .cta-box p{margin-bottom:18px}
+    .cta-box .btn{width:100%}
+    .contact-grid{grid-template-columns:1fr;gap:13px}
+    .contact-info,.contact-form{padding:18px}
+    .contact-form{grid-template-columns:1fr}
+    .contact-form .field.full,.contact-form .btn,.form-note{grid-column:1}
+    .footer-main{display:block}
+    .footer-links{margin-top:18px;gap:14px}
+    .footer-bottom{flex-direction:column;gap:7px}
+    .whatsapp-float{right:max(12px,calc((100vw - 480px)/2 + 12px));bottom:91px;padding:10px 12px;font-size:10px}
+    .mobile-nav.open{display:flex;position:absolute;left:0;right:0;top:66px;background:white;padding:8px 18px 14px;box-shadow:0 15px 25px #173c2b12;flex-direction:column;gap:0;border-bottom:1px solid var(--line)}
+    .mobile-nav a{padding:12px 4px;border-bottom:1px solid #edf1ee;font-size:13px;font-weight:700}
+    .app-bottom-nav{position:fixed;z-index:50;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);height:72px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.97);backdrop-filter:blur(18px);border-top:1px solid #e2e9e4;box-shadow:0 -8px 28px rgba(17,55,41,.08)}
+    .app-bottom-nav a,.app-bottom-nav button{border:0;background:transparent;color:#78847d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:700;border-radius:12px;min-width:0}
+    .app-bottom-nav .nav-emoji{font-size:19px;line-height:1.1}
+    .app-bottom-nav a.active{color:var(--green);background:#eaf4ed}
+    @media(min-width:701px){body{border-left:1px solid #dce5df;border-right:1px solid #dce5df}.mobile-nav{display:none!important}}
+    @media(max-width:360px){.hero h1{font-size:34px}.category{align-items:flex-start;flex-direction:column}.category-grid{gap:8px}.property-image{height:200px}.brand-name{font-size:14px}}
   </style>
 </head>
 <body>
@@ -139,6 +195,13 @@
           <p class="form-note">Renseignez ces deux informations avant de continuer. WhatsApp s'ouvrira avec votre demande préremplie.</p>
         </form></div></div>
   </div>
+  <nav class="app-bottom-nav" aria-label="Navigation de l’application">
+    <a href="#accueil" class="active" data-bottom="accueil"><span class="nav-emoji">⌂</span><span>Accueil</span></a>
+    <a href="#biens" data-bottom="biens"><span class="nav-emoji">▦</span><span>Explorer</span></a>
+    <a href="#categories" data-bottom="categories"><span class="nav-emoji">⌕</span><span>Catégories</span></a>
+    <a href="#contact" data-bottom="contact"><span class="nav-emoji">♡</span><span>Contact</span></a>
+    <button type="button" id="bottomMenu"><span class="nav-emoji">☰</span><span>Menu</span></button>
+  </nav>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -191,6 +254,8 @@
     $("#contactForm").addEventListener("submit",e=>{e.preventDefault();const name=$("#clientName").value.trim(),phone=$("#clientPhone").value.trim();if(!name||!phone){toast("Veuillez remplir votre nom et votre numéro WhatsApp.");return}const text=`Bonjour ${CONFIG.agencyName}, je souhaite être contacté(e) au sujet de vos biens immobiliers.\n\nNom complet : ${name}\nMon numéro WhatsApp : ${phone}\n\nMerci de me recontacter.`;window.open(waUrl(text),"_blank","noopener");toast("Votre message est prêt dans WhatsApp. Confirmez son envoi.")});
     $("#menuToggle").addEventListener("click",()=>{const nav=$("#mobileNav"),open=nav.classList.toggle("open");$("#menuToggle").setAttribute("aria-expanded",String(open));$("#menuToggle").textContent=open?"×":"☰"});document.querySelectorAll("#mobileNav a").forEach(a=>a.addEventListener("click",()=>{$("#mobileNav").classList.remove("open");$("#menuToggle").setAttribute("aria-expanded","false");$("#menuToggle").textContent="☰"}));
     function populateCityFilter(){const select=$("#cityFilter");const current=select.value;const cities=[...new Set(properties.map(p=>p.city||"Ouagadougou").filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr"));select.innerHTML='<option value="">Toutes les villes</option>'+cities.map(city=>`<option value="${escapeHTML(city)}">${escapeHTML(city)}</option>`).join("");if(cities.includes(current))select.value=current}
+    document.querySelectorAll("[data-bottom]").forEach(link=>link.addEventListener("click",()=>{document.querySelectorAll("[data-bottom]").forEach(a=>a.classList.remove("active"));link.classList.add("active")}));
+    $("#bottomMenu").addEventListener("click",()=>{const nav=$("#mobileNav");const open=nav.classList.toggle("open");$("#menuToggle").setAttribute("aria-expanded",String(open));$("#menuToggle").textContent=open?"×":"☰"});
     populateCityFilter();applyBrand();renderProperties();
 
     /*
