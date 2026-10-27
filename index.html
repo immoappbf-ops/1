@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#12304a">
+  <link rel="manifest" href="./manifest.json">
   <meta name="description" content="42 Services Immobilier : découvrez des maisons, appartements, terrains et locaux à vendre ou à louer au Burkina Faso.">
   <title>42 Services Immobilier</title>
 
@@ -114,6 +115,59 @@
     }
 
     .header-whatsapp span { font-size: 18px; }
+
+    /* Barre d'installation toujours visible en haut */
+    .install-bar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 7px 10px;
+      background: #12304a;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+    }
+
+    .install-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 8px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: #f29f3d;
+      color: #172b3a;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 3px 10px rgba(0,0,0,.18);
+      white-space: nowrap;
+    }
+
+    .install-button:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 2px;
+    }
+
+    header {
+      top: 51px;
+    }
+
+    @media (max-width: 480px) {
+      .install-bar {
+        padding: 6px 8px;
+      }
+      .install-button {
+        min-height: 36px;
+        padding: 7px 16px;
+        font-size: 13px;
+      }
+      header {
+        top: 48px;
+      }
+    }
 
     .container {
       width: 100%;
@@ -554,6 +608,12 @@
 </head>
 
 <body>
+  <div class="install-bar">
+    <button id="installAppButton" class="install-button" type="button">
+      ⬇ Installer l’App
+    </button>
+  </div>
+
   <header>
     <img class="logo" src="logo.jpg" alt="Logo 42 Services Immobilier"
       onerror="this.style.display='none'">
@@ -1475,6 +1535,48 @@
     initializeProfile();
     renderAll();
     loadProperties();
+
+    // Installation PWA : le bouton reste visible même si le navigateur
+    // ne propose pas immédiatement l'installation native.
+    let deferredInstallPrompt = null;
+    const installAppButton = $("installAppButton");
+
+    window.addEventListener("beforeinstallprompt", event => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installAppButton.textContent = "⬇ Installer l’App";
+    });
+
+    installAppButton.addEventListener("click", async () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        return;
+      }
+
+      if (window.matchMedia("(display-mode: standalone)").matches ||
+          window.navigator.standalone === true) {
+        showToast("L’application est déjà installée.");
+        return;
+      }
+
+      showToast("Pour installer : ouvre le menu du navigateur puis choisis « Installer l’application » ou « Ajouter à l’écran d’accueil ».");
+      alert("Pour installer 42 Services Immobilier :\n\n1. Ouvre le menu ⋮ de Chrome.\n2. Choisis « Installer l’application » ou « Ajouter à l’écran d’accueil ».\n3. Confirme l’installation.\n\nSi cette option n’apparaît pas, vérifie que le site est bien publié en HTTPS et que manifest.json et sw.js sont accessibles.");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      showToast("42 Services Immobilier a été installée avec succès.");
+      installAppButton.textContent = "✓ App installée";
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(error => {
+          console.error("Enregistrement du service worker impossible :", error);
+        });
+      });
+    }
   </script>
 </body>
 </html>
