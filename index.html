@@ -1,438 +1,1401 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#123d32">
-<meta name="description" content="42 Services Immobilier : découvrez des maisons, appartements, terrains et locaux au Burkina Faso.">
-<title>42 Services Immobilier</title>
-<style>
-:root{--green:#123d32;--green2:#1e604b;--mint:#eaf4ed;--ink:#19251f;--muted:#6b7971;--line:#e1e9e3;--bg:#f6f9f6;--white:#fff;--wa:#20bf68;--shadow:0 12px 32px #123d3212}
-*{box-sizing:border-box}html{background:#e9eeeb}body{margin:0 auto;max-width:480px;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;padding-bottom:86px;box-shadow:0 0 45px #123d3210}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}button{cursor:pointer}a{color:inherit;text-decoration:none}.container{width:calc(100% - 28px);margin:0 auto}.hidden{display:none!important}
-header{height:68px;background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);display:flex;align-items:center}.header-inner{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 28px);margin:auto;gap:10px}.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-mark{height:42px;width:42px;border-radius:13px;background:#fff;color:white;display:grid;place-items:center;font-weight:800;font-size:18px;overflow:hidden;flex-shrink:0}.brand-mark img{height:100%;width:100%;object-fit:contain;display:block}.brand-mark img{height:100%;width:100%;object-fit:contain}.brand-name{font-weight:800;font-size:15px;display:block}.brand-sub{font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);display:block;margin-top:2px}.header-wa{background:var(--mint);color:var(--green);border:0;border-radius:11px;padding:10px 11px;font-size:11px;font-weight:800}
-.screen{min-height:calc(100vh - 154px)}.hero{padding:25px 0 18px;background:radial-gradient(ellipse at 95% 0,#dcece1 0,transparent 45%),linear-gradient(#fff,#f6f9f6)}.eyebrow{display:inline-flex;align-items:center;gap:7px;border-radius:30px;padding:7px 10px;background:var(--mint);color:var(--green2);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:#3caa71}.hero h1{font-size:37px;line-height:1.08;letter-spacing:-1.5px;margin:17px 0 12px}.hero h1 span{color:var(--green2)}.hero p{font-size:13px;color:var(--muted);line-height:1.75;margin:0 0 18px}.hero-actions{display:flex;gap:9px}.btn{border:0;border-radius:12px;padding:12px 14px;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:var(--green);color:#fff}.light{background:var(--mint);color:var(--green)}.outline{background:white;color:var(--green);border:1px solid var(--line)}.wa{background:var(--wa);color:#fff}.hero-actions .btn{flex:1}.hero-image{height:245px;margin:23px 2px 0;border-radius:20px;overflow:hidden;position:relative;background:#dce8df}.hero-image img{height:100%;width:100%;object-fit:cover;display:block}.hero-image:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#0a2118a8)}.hero-caption{position:absolute;z-index:1;bottom:17px;left:17px;right:17px;color:#fff}.hero-caption small{display:block;font-size:10px;opacity:.9}.hero-caption strong{display:block;font-size:19px;margin-top:3px}
-.search-box{background:white;border:1px solid var(--line);border-radius:18px;padding:13px;margin-top:14px;box-shadow:var(--shadow)}.field{min-width:0}.field label{display:block;font-size:10px;font-weight:800;color:var(--muted);margin:0 0 6px 2px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:#fbfcfb;padding:11px;font-size:12px;outline:none;color:var(--ink)}.field input:focus,.field select:focus,.field textarea:focus{border-color:#75ae8e;box-shadow:0 0 0 3px #c8e6d544}.search-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.search-grid .wide{grid-column:1/-1}.search-submit{width:100%;margin-top:11px}
-.section{padding:28px 0}.section-head{margin-bottom:17px}.kicker{font-size:10px;color:var(--green2);letter-spacing:1.4px;text-transform:uppercase;font-weight:800}.section h2{font-size:25px;letter-spacing:-.8px;line-height:1.2;margin:7px 0}.section-sub{font-size:12px;line-height:1.7;color:var(--muted);margin:0}.category-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.category{display:flex;align-items:center;text-align:left;gap:10px;padding:13px 10px;border:1px solid var(--line);background:white;border-radius:14px;color:var(--ink);min-width:0}.category.active{background:var(--mint);border-color:#8ab99c}.cat-icon{height:39px;width:39px;flex-shrink:0;border-radius:12px;background:var(--mint);color:var(--green);display:grid;place-items:center;font-size:20px}.category strong{display:block;font-size:11px}.category small{display:block;color:var(--muted);font-size:9px;margin-top:3px}
-.results-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.results-count{font-size:11px;color:var(--muted)}.sort{max-width:145px;border:1px solid var(--line);border-radius:9px;padding:8px;background:white;color:var(--ink);font-size:11px}.property-grid{display:grid;grid-template-columns:1fr;gap:14px}.property-card{background:white;border:1px solid var(--line);border-radius:17px;overflow:hidden}.property-image{height:205px;position:relative;background:#e2ebe4}.property-image img{height:100%;width:100%;object-fit:cover;display:block}.badge{position:absolute;left:11px;top:11px;background:white;color:var(--green);padding:7px 9px;border-radius:8px;font-size:10px;font-weight:800}.fav{position:absolute;right:11px;top:11px;width:35px;height:35px;border:0;border-radius:50%;background:#ffffffeb;color:#53645a;font-size:19px}.fav.saved{color:#dc4560}.property-content{padding:15px}.location{font-size:10px;color:var(--muted)}.property-title{font-size:17px;line-height:1.35;margin:7px 0 8px}.price{font-size:19px;color:var(--green);font-weight:800}.price small{font-size:10px;color:var(--muted);font-weight:500}.specs{display:flex;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px;font-size:10px;color:var(--muted)}.card-actions{display:flex;gap:8px;margin-top:14px}.card-actions button{flex:1}.empty{grid-column:1/-1;text-align:center;padding:35px 18px;border:1px dashed #cbd8cf;border-radius:16px;color:var(--muted);font-size:12px;line-height:1.7}.empty strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}
-.contact-card,.profile-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;margin-bottom:13px}.contact-card.dark{background:var(--green);color:#fff;border:0}.contact-card.dark p{color:#d0e3d7}.contact-card h3,.profile-card h3{font-size:16px;margin:0 0 9px}.contact-card p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 13px}.contact-detail{padding:10px 0;border-bottom:1px solid #ffffff22;font-size:12px}.contact-detail:last-child{border:0}.contact-form,.profile-form{display:grid;gap:12px}.contact-form .btn,.profile-form .btn{width:100%}.note{font-size:10px;line-height:1.6;color:var(--muted);margin:8px 0 0}.profile-top{display:flex;align-items:center;gap:12px}.avatar{width:53px;height:53px;border-radius:50%;background:var(--mint);color:var(--green);font-size:22px;font-weight:800;display:grid;place-items:center}.profile-top strong{display:block;font-size:15px}.profile-top small{color:var(--muted);font-size:11px}.profile-form label{font-size:11px;font-weight:700;color:var(--muted)}.profile-form input{display:block;width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;margin-top:5px;font-size:12px}.request-item{padding:11px;border-radius:10px;background:#f4f8f4;font-size:11px;margin-top:8px}.request-item strong{display:block;margin-bottom:3px}.notice{font-size:11px;color:var(--muted);line-height:1.65}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);height:74px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);background:#fffffffa;backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:40}.nav-item{border:0;background:transparent;color:#78847d;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:800;border-radius:11px}.nav-item svg{height:22px;width:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.nav-item.active{color:var(--green);background:var(--mint)}.toast{position:fixed;z-index:90;bottom:90px;left:50%;transform:translate(-50%,12px);opacity:0;pointer-events:none;max-width:calc(100% - 28px);padding:12px 15px;background:#163c30;color:white;border-radius:12px;font-size:12px;transition:.2s;box-shadow:var(--shadow)}.toast.show{opacity:1;transform:translate(-50%,0)}
-.modal-backdrop{display:none;position:fixed;inset:0;z-index:70;background:#071a13a8;align-items:center;justify-content:center;padding:14px}.modal-backdrop.open{display:flex}.modal{position:relative;width:min(100%,460px);max-height:90vh;overflow:auto;background:#fff;border-radius:20px}.modal-close{position:absolute;z-index:2;right:10px;top:10px;border:0;border-radius:50%;width:36px;height:36px;background:#ffffffed;font-size:22px}.modal-img{width:100%;height:220px;object-fit:cover;display:block}.modal-body{padding:17px}.modal-body h2{font-size:22px;line-height:1.25;margin:7px 0}.modal-desc{font-size:12px;line-height:1.75;color:var(--muted)}.modal-specs{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0}.modal-specs span{font-size:10px;padding:7px 9px;border-radius:8px;background:var(--mint);color:var(--green)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-grid .wide{grid-column:1/-1}.wa-svg{width:18px;height:18px;vertical-align:middle;fill:currentColor}
-@media(min-width:700px){body{border-left:1px solid #dce5df;border-right:1px solid #dce5df}.hero h1{font-size:40px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#16834a">
+  <meta name="description" content="42 Services Immobilier : découvrez des maisons, appartements, terrains et locaux à vendre ou à louer au Burkina Faso.">
+  <title>42 Services Immobilier</title>
+
+  <style>
+    :root {
+      --green: #16834a;
+      --green-dark: #0d6637;
+      --green-light: #e8f6ed;
+      --white: #ffffff;
+      --background: #f5f7f6;
+      --text: #17231b;
+      --muted: #68766d;
+      --border: #e2e9e4;
+      --red: #e64747;
+      --shadow: 0 5px 18px rgba(0, 0, 0, .07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--background);
+      padding-bottom: 85px;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    header {
+      background: var(--white);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .brand {
+      flex: 1;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      color: var(--green);
+    }
+
+    .brand p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1050px;
+      margin: auto;
+      padding: 18px 14px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0d6637, #21a45d);
+      color: white;
+      border-radius: 18px;
+      padding: 28px 20px;
+      margin-bottom: 22px;
+    }
+
+    .hero h2 {
+      font-size: 27px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .hero button {
+      background: white;
+      color: var(--green-dark);
+      border: none;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font-weight: bold;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin: 22px 0 14px;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+    }
+
+    .section-title span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 11px;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--green);
+    }
+
+    .search-button, .primary-button {
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 12px 15px;
+      font-weight: bold;
+    }
+
+    .search-button {
+      grid-column: 1 / -1;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .category {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 11px;
+      padding: 13px 5px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .category.active {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: var(--green-dark);
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 145px;
+      object-fit: cover;
+      background: #e8eee9;
+      display: block;
+    }
+
+    .card-content {
+      padding: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green-dark);
+      border-radius: 5px;
+      padding: 5px 7px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      line-height: 1.35;
+      margin-bottom: 7px;
+    }
+
+    .location {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 9px;
+    }
+
+    .price {
+      color: var(--green);
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .details {
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    .card-actions button {
+      flex: 1;
+      padding: 9px 5px;
+      border-radius: 7px;
+      border: none;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .details-button {
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+
+    .contact-button {
+      background: var(--green);
+      color: white;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      background: white;
+      border: 1px dashed var(--border);
+      padding: 30px 18px;
+      text-align: center;
+      border-radius: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .panel h2 {
+      margin-bottom: 12px;
+      font-size: 19px;
+    }
+
+    .panel p {
+      line-height: 1.6;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form {
+      display: grid;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .form .field label {
+      font-size: 13px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      z-index: 30;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 9px 3px calc(9px + env(safe-area-inset-bottom));
+    }
+
+    .nav-button {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      min-width: 55px;
+    }
+
+    .nav-button .icon {
+      font-size: 20px;
+    }
+
+    .nav-button.active {
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      background: rgba(0, 0, 0, .6);
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    .modal.open {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 550px;
+      margin: auto;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .modal-content img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      background: #e8eee9;
+    }
+
+    .modal-body {
+      padding: 18px;
+    }
+
+    .modal-body h2 {
+      margin: 10px 0;
+      font-size: 22px;
+    }
+
+    .modal-body p {
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 10px 0;
+      white-space: pre-line;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .close-button {
+      background: #f0f3f1;
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 20px;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 100;
+      left: 50%;
+      bottom: 90px;
+      transform: translateX(-50%);
+      background: #17231b;
+      color: white;
+      border-radius: 9px;
+      padding: 12px 16px;
+      font-size: 13px;
+      width: max-content;
+      max-width: 90%;
+      display: none;
+      text-align: center;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      padding: 20px 10px;
+    }
+
+    @media (min-width: 700px) {
+      .container {
+        padding: 25px 22px;
+      }
+
+      .hero {
+        padding: 40px;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+
+      .filters {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .search-button {
+        grid-column: auto;
+        align-self: end;
+      }
+
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card-image {
+        height: 190px;
+      }
+
+      .card-content {
+        padding: 15px;
+      }
+
+      .categories {
+        gap: 12px;
+      }
+
+      .category {
+        padding: 16px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header><div class="header-inner">
-  <a href="#" class="brand" data-screen="home" aria-label="Accueil 42 Services">
-    <span class="brand-mark" id="brandMark"><img src="logo.jpg" alt="Logo 42 Services Immobilier" onerror="this.style.display='none';this.parentElement.textContent='42'"></span>
-    <span><span class="brand-name" id="brandName">42 Services</span><span class="brand-sub">Immobilier & patrimoine</span></span>
-  </a>
-  <a class="header-wa" id="headerWhatsApp" href="#" target="_blank" rel="noopener">WhatsApp ↗</a>
-</div></header>
+  <header>
+    <img class="logo" src="logo.jpg" alt="Logo 42 Services Immobilier"
+      onerror="this.style.display='none'">
+    <div class="brand">
+      <h1>42 Services Immobilier</h1>
+      <p>Votre partenaire immobilier au Burkina Faso</p>
+    </div>
+  </header>
 
-<main>
-  <section class="screen" id="screen-home">
-    <div class="hero">
-      <div class="container">
-        <span class="eyebrow"><span class="dot"></span> 42 SERVICES IMMOBILIER</span>
-        <h1>Découvrez nos biens immobiliers <span>facilement.</span></h1>
-        <p>Maisons, appartements, terrains et locaux professionnels : trouvez un bien adapté à votre projet et contactez directement notre agence.</p>
-        <div class="hero-actions"><button class="btn primary" type="button" data-go="explore">Découvrir les biens ↗</button><button class="btn outline" type="button" data-go="contact">Nous contacter</button></div>
-        <div class="hero-image"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85" alt="Maison moderne" fetchpriority="high"><div class="hero-caption"><small>Votre prochain projet commence ici</small><strong>Un lieu à appeler chez soi</strong></div></div>
+  <main class="container">
+    <section id="homeScreen" class="screen active">
+      <div class="hero">
+        <h2>Trouvez votre prochain logement</h2>
+        <p>Découvrez des maisons, appartements, terrains et locaux disponibles à la vente ou à la location.</p>
+        <button onclick="showScreen('explore')">Explorer les annonces →</button>
+      </div>
+
+      <div class="section-title">
+        <h2>Catégories</h2>
+      </div>
+
+      <div class="categories">
+        <button class="category" onclick="chooseCategory('Maison', this)">🏠 Maison</button>
+        <button class="category" onclick="chooseCategory('Appartement', this)">🏢 Appartement</button>
+        <button class="category" onclick="chooseCategory('Terrain', this)">🌍 Terrain</button>
+        <button class="category" onclick="chooseCategory('Bureau', this)">🏬 Bureau</button>
+      </div>
+
+      <div class="section-title">
+        <h2>Annonces récentes</h2>
+        <span id="homeCount">Chargement…</span>
+      </div>
+
+      <div id="homeGrid" class="grid"></div>
+    </section>
+
+    <section id="exploreScreen" class="screen">
+      <div class="section-title">
+        <h2>Explorer les annonces</h2>
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label for="searchInput">Recherche</label>
+          <input id="searchInput" type="search" placeholder="Maison, villa, terrain…">
+        </div>
+
+        <div class="field">
+          <label for="dealFilter">Transaction</label>
+          <select id="dealFilter">
+            <option value="">Toutes</option>
+            <option value="Vente">Vente</option>
+            <option value="Location">Location</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="typeFilter">Type de bien</label>
+          <select id="typeFilter">
+            <option value="">Tous les types</option>
+            <option value="Maison">Maison</option>
+            <option value="Villa">Villa</option>
+            <option value="Appartement">Appartement</option>
+            <option value="Terrain">Terrain</option>
+            <option value="Bureau">Bureau</option>
+            <option value="Magasin">Magasin</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cityFilter">Ville</label>
+          <select id="cityFilter">
+            <option value="">Toutes les villes</option>
+          </select>
+        </div>
+
+        <button class="search-button" onclick="renderAll()">Rechercher</button>
+      </div>
+
+      <div class="section-title">
+        <h2>Résultats</h2>
+        <span id="exploreCount"></span>
+      </div>
+
+      <div id="exploreGrid" class="grid"></div>
+    </section>
+
+    <section id="categoriesScreen" class="screen">
+      <div class="section-title">
+        <h2>Toutes les catégories</h2>
+      </div>
+
+      <div class="categories">
+        <button class="category" onclick="chooseCategory('Maison', this)">🏠 Maison</button>
+        <button class="category" onclick="chooseCategory('Villa', this)">🏡 Villa</button>
+        <button class="category" onclick="chooseCategory('Appartement', this)">🏢 Appartement</button>
+        <button class="category" onclick="chooseCategory('Terrain', this)">🌍 Terrain</button>
+        <button class="category" onclick="chooseCategory('Bureau', this)">🏬 Bureau</button>
+        <button class="category" onclick="chooseCategory('Magasin', this)">🏪 Magasin</button>
+        <button class="category" onclick="chooseCategory('Local commercial', this)">🏬 Local commercial</button>
+        <button class="category" onclick="chooseCategory('', this)">Tout afficher</button>
+      </div>
+
+      <div id="categoryGrid" class="grid"></div>
+    </section>
+
+    <section id="contactScreen" class="screen">
+      <div class="panel">
+        <h2>Contactez-nous</h2>
+        <p>Vous recherchez un bien immobilier ou vous souhaitez publier une annonce ? Envoyez-nous votre demande.</p>
+
+        <form id="contactForm" class="form">
+          <div class="field">
+            <label for="contactName">Votre nom</label>
+            <input id="contactName" required maxlength="100" placeholder="Votre nom complet">
+          </div>
+
+          <div class="field">
+            <label for="contactPhone">Téléphone WhatsApp</label>
+            <input id="contactPhone" required maxlength="30" placeholder="Votre numéro">
+          </div>
+
+          <div class="field">
+            <label for="contactMessage">Votre demande</label>
+            <textarea id="contactMessage" required maxlength="2000" rows="4" placeholder="Expliquez-nous votre besoin…"></textarea>
+          </div>
+
+          <button class="primary-button" type="submit">Envoyer ma demande</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>42 Services Immobilier</h2>
+        <p>Pour toute question concernant nos annonces, contactez notre équipe sur WhatsApp.</p>
+        <br>
+        <button class="primary-button" onclick="openGeneralWhatsApp()">Discuter sur WhatsApp</button>
+      </div>
+    </section>
+
+    <section id="profileScreen" class="screen">
+      <div class="panel">
+        <h2>Mon profil</h2>
+        <p>Enregistrez vos coordonnées pour faciliter vos prochaines demandes.</p>
+
+        <form id="profileForm" class="form">
+          <div class="field">
+            <label for="profileName">Nom complet</label>
+            <input id="profileName" maxlength="100" placeholder="Votre nom">
+          </div>
+
+          <div class="field">
+            <label for="profilePhone">Téléphone</label>
+            <input id="profilePhone" maxlength="30" placeholder="Votre numéro">
+          </div>
+
+          <button class="primary-button" type="submit">Enregistrer mon profil</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2>Mes favoris ❤️</h2>
+        <div id="favoritesGrid" class="grid"></div>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> 42 Services Immobilier</footer>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-button active" data-screen="home">
+      <span class="icon">🏠</span>Accueil
+    </button>
+    <button class="nav-button" data-screen="explore">
+      <span class="icon">🔎</span>Explorer
+    </button>
+    <button class="nav-button" data-screen="categories">
+      <span class="icon">▦</span>Catégories
+    </button>
+    <button class="nav-button" data-screen="contact">
+      <span class="icon">💬</span>Contact
+    </button>
+    <button class="nav-button" data-screen="profile">
+      <span class="icon">👤</span>Profil
+    </button>
+  </nav>
+
+  <div id="propertyModal" class="modal" role="dialog" aria-modal="true" aria-label="Détails de l'annonce">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Photo du bien immobilier">
+      <div class="modal-body">
+        <div class="modal-top">
+          <span id="modalBadge" class="badge"></span>
+          <button class="close-button" onclick="closeModal()" aria-label="Fermer">×</button>
+        </div>
+
+        <h2 id="modalTitle"></h2>
+        <div id="modalPrice" class="price"></div>
+        <div id="modalLocation" class="location"></div>
+        <div id="modalDetails" class="details"></div>
+        <p id="modalDescription"></p>
+
+        <form id="requestForm" class="form">
+          <h3>Demander des informations</h3>
+
+          <div class="field">
+            <label for="requestName">Votre nom</label>
+            <input id="requestName" required maxlength="100" placeholder="Votre nom complet">
+          </div>
+
+          <div class="field">
+            <label for="requestPhone">Votre téléphone</label>
+            <input id="requestPhone" required maxlength="30" placeholder="Votre numéro">
+          </div>
+
+          <div class="field">
+            <label for="requestMessage">Message</label>
+            <textarea id="requestMessage" rows="3" maxlength="2000" placeholder="Je souhaite avoir plus d'informations…"></textarea>
+          </div>
+
+          <button class="primary-button" type="submit">Envoyer ma demande</button>
+          <button class="search-button" type="button" onclick="closeModal()">Fermer</button>
+        </form>
       </div>
     </div>
-    <div class="container">
-      <form class="search-box" id="searchForm">
-        <div class="search-grid">
-          <div class="field wide"><label for="searchText">Ville, quartier ou mot-clé</label><input id="searchText" type="search" placeholder="Ex. : Ouaga 2000, villa…"></div>
-          <div class="field"><label for="cityFilter">Ville</label><select id="cityFilter"><option value="">Toutes les villes</option></select></div>
-          <div class="field"><label for="typeFilter">Type de bien</label><select id="typeFilter"><option value="">Tous les types</option><option>Maison</option><option>Villa</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select></div>
-          <div class="field"><label for="dealFilter">Transaction</label><select id="dealFilter"><option value="">Vente et location</option><option>Vente</option><option>Location</option></select></div>
-          <div class="field"><label for="budgetFilter">Budget maximum</label><select id="budgetFilter"><option value="">Tous budgets</option><option value="100000">100 000 F</option><option value="250000">250 000 F</option><option value="1000000">1 000 000 F</option><option value="10000000">10 000 000 F</option><option value="30000000">30 000 000 F</option><option value="50000000">50 000 000 F</option></select></div>
-        </div>
-        <button class="btn primary search-submit" type="submit">⌕ Rechercher un bien</button>
-      </form>
-      <section class="section">
-        <div class="section-head"><div class="kicker">Explorez nos catégories</div><h2>Quel bien recherchez-vous ?</h2><p class="section-sub">Sélectionnez une catégorie pour découvrir les annonces correspondantes.</p></div>
-        <div class="category-grid">
-          <button class="category" type="button" data-category="Maison"><span class="cat-icon">⌂</span><span><strong>Maisons & villas</strong><small>Votre futur chez-vous</small></span></button>
-          <button class="category" type="button" data-category="Appartement"><span class="cat-icon">▤</span><span><strong>Appartements</strong><small>Studios et appartements</small></span></button>
-          <button class="category" type="button" data-category="Terrain"><span class="cat-icon">▧</span><span><strong>Terrains</strong><small>Préparez votre projet</small></span></button>
-          <button class="category" type="button" data-category="Local commercial"><span class="cat-icon">⌑</span><span><strong>Locaux commerciaux</strong><small>Pour votre activité</small></span></button>
-        </div>
-      </section>
-      <section class="section" style="padding-top:4px">
-        <div class="section-head"><div class="kicker">Notre sélection</div><h2>Les biens disponibles</h2><p class="section-sub">Découvrez les annonces de l’agence et demandez plus d’informations sur celles qui vous intéressent.</p></div>
-        <div class="results-head"><span class="results-count" id="homeResultsCount"></span><select class="sort" id="homeSort" aria-label="Trier les annonces"><option value="featured">Notre sélection</option><option value="priceAsc">Prix croissant</option><option value="priceDesc">Prix décroissant</option></select></div>
-        <div class="property-grid" id="homeGrid"></div>
-        <button class="btn light" type="button" data-go="explore" style="width:100%;margin-top:14px">Voir toutes les annonces ↗</button>
-      </section>
-    </div>
-  </section>
+  </div>
 
-  <section class="screen hidden" id="screen-explore">
-    <div class="container section">
-      <div class="section-head"><div class="kicker">Explorer</div><h2>Tous les biens disponibles</h2><p class="section-sub">Filtrez par ville, quartier, type de bien ou opération.</p></div>
-      <form class="search-box" id="exploreSearchForm">
-        <div class="search-grid">
-          <div class="field wide"><label for="exploreText">Ville, quartier ou mot-clé</label><input id="exploreText" type="search" placeholder="Ex. : Zone du Bois, terrain…"></div>
-          <div class="field"><label for="exploreCity">Ville</label><select id="exploreCity"><option value="">Toutes les villes</option></select></div>
-          <div class="field"><label for="exploreType">Type de bien</label><select id="exploreType"><option value="">Tous les types</option><option>Maison</option><option>Villa</option><option>Appartement</option><option>Terrain</option><option>Local commercial</option></select></div>
-          <div class="field"><label for="exploreDeal">Transaction</label><select id="exploreDeal"><option value="">Vente et location</option><option>Vente</option><option>Location</option></select></div>
-          <div class="field"><label for="exploreBudget">Budget maximum</label><select id="exploreBudget"><option value="">Tous budgets</option><option value="100000">100 000 F</option><option value="250000">250 000 F</option><option value="1000000">1 000 000 F</option><option value="10000000">10 000 000 F</option><option value="30000000">30 000 000 F</option><option value="50000000">50 000 000 F</option></select></div>
-        </div><button class="btn primary search-submit" type="submit">Rechercher</button>
-      </form>
-      <div class="results-head" style="margin-top:18px"><span class="results-count" id="exploreResultsCount"></span><select class="sort" id="exploreSort" aria-label="Trier les annonces"><option value="featured">Notre sélection</option><option value="priceAsc">Prix croissant</option><option value="priceDesc">Prix décroissant</option></select></div>
-      <div class="property-grid" id="exploreGrid"></div>
-    </div>
-  </section>
+  <div id="toast" class="toast" role="status"></div>
 
-  <section class="screen hidden" id="screen-categories">
-    <div class="container section">
-      <div class="section-head"><div class="kicker">Catégories</div><h2>Quel type de bien vous intéresse ?</h2><p class="section-sub">Touchez une catégorie pour afficher les annonces correspondantes.</p></div>
-      <div class="category-grid">
-        <button class="category" type="button" data-category="Maison"><span class="cat-icon">⌂</span><span><strong>Maisons & villas</strong><small>Votre futur chez-vous</small></span></button>
-        <button class="category" type="button" data-category="Appartement"><span class="cat-icon">▤</span><span><strong>Appartements</strong><small>Studios et appartements</small></span></button>
-        <button class="category" type="button" data-category="Terrain"><span class="cat-icon">▧</span><span><strong>Terrains</strong><small>Préparez votre projet</small></span></button>
-        <button class="category" type="button" data-category="Local commercial"><span class="cat-icon">⌑</span><span><strong>Locaux commerciaux</strong><small>Pour votre activité</small></span></button>
-        <button class="category" type="button" data-category=""><span class="cat-icon">▦</span><span><strong>Tous les biens</strong><small>Afficher toutes les annonces</small></span></button>
-      </div>
-      <div class="section" style="padding-bottom:0"><div class="results-head"><span class="results-count" id="categoryResultsCount"></span></div><div class="property-grid" id="categoryGrid"></div></div>
-    </div>
-  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <section class="screen hidden" id="screen-contact">
-    <div class="container section">
-      <div class="section-head"><div class="kicker">Contact</div><h2>Parlons de votre projet immobilier.</h2><p class="section-sub">Laissez vos coordonnées et préparez votre message pour l’agence.</p></div>
-      <div class="contact-card dark"><h3>42 Services Immobilier</h3><p>Vous souhaitez visiter un bien, poser une question ou nous expliquer votre recherche ? Notre équipe est à votre écoute.</p><div class="contact-detail">📍 <span id="agencyLocation">Ouagadougou, Burkina Faso</span></div><div class="contact-detail">☎ WhatsApp : <strong id="agencyPhoneDisplay">+226 77 32 85 69</strong></div><a id="contactDirect" class="btn wa" href="#" target="_blank" rel="noopener" style="margin-top:14px;width:100%">Écrire directement sur WhatsApp ↗</a></div>
-      <div class="contact-card"><h3>Envoyer une demande</h3><form id="contactForm" class="contact-form"><div class="field"><label for="contactName">Nom complet *</label><input id="contactName" required autocomplete="name" placeholder="Votre nom"></div><div class="field"><label for="contactPhone">Numéro WhatsApp *</label><input id="contactPhone" type="tel" required autocomplete="tel" placeholder="Votre numéro"></div><button class="btn primary" type="submit">Préparer ma demande sur WhatsApp ↗</button><p class="note">WhatsApp s’ouvrira avec un message prérempli. Vous devrez confirmer l’envoi. La demande n’est pas encore enregistrée dans une base de données.</p></form></div>
-    </div>
-  </section>
+  <script>
+    "use strict";
 
-  <section class="screen hidden" id="screen-profile">
-    <div class="container section">
-      <div class="section-head"><div class="kicker">Espace personnel</div><h2>Mon profil</h2><p class="section-sub">Vos informations et vos demandes enregistrées sur cet appareil.</p></div>
-      <div class="profile-card"><div class="profile-top"><div class="avatar" id="profileAvatar">♙</div><div><strong id="profileDisplayName">Bienvenue</strong><small id="profileDisplayPhone">Ajoutez vos coordonnées</small></div></div></div>
-      <div class="profile-card"><h3>Mes informations</h3><form id="profileForm" class="profile-form"><label>Nom complet<input id="profileName" required autocomplete="name" placeholder="Votre nom complet"></label><label>Numéro WhatsApp<input id="profilePhone" type="tel" required autocomplete="tel" placeholder="+226 …"></label><button class="btn primary" type="submit">Enregistrer mes informations</button></form><p class="note">Les informations sont conservées localement sur cet appareil. Aucun mot de passe ni compte sécurisé n’est configuré pour le moment.</p></div>
-      <div class="profile-card"><h3>Mes demandes</h3><div id="profileRequests"><div class="request-item">Aucune demande enregistrée pour le moment.</div></div><p class="note">Les demandes envoyées via WhatsApp ne sont pas automatiquement enregistrées dans cette version.</p></div>
-    </div>
-  </section>
-</main>
+    // ============================================
+    // CONFIGURATION SUPABASE
+    // ============================================
 
-<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal"><button class="modal-close" id="modalClose" aria-label="Fermer">×</button><img class="modal-img" id="modalImage" src="" alt=""><div class="modal-body"><div class="location" id="modalLocation"></div><h2 id="modalTitle"></h2><div class="price" id="modalPrice"></div><p class="modal-desc" id="modalDescription"></p><div class="modal-specs" id="modalSpecs"></div><form id="orderForm"><div class="form-grid"><div class="field"><label for="orderName">Nom complet *</label><input id="orderName" required placeholder="Votre nom"></div><div class="field"><label for="orderPhone">Numéro WhatsApp *</label><input id="orderPhone" type="tel" required placeholder="Votre numéro"></div><button class="btn primary wide" type="submit">Demander des informations sur ce bien ↗</button></div><p class="note">La demande sera préparée dans WhatsApp ; confirmez l’envoi dans l’application.</p></form></div></div>
-</div>
+    const SUPABASE_URL = "https://nlenhjhhdkspjvcaoofv.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_OY46k-7IOltL62R-VBzb3g_kd6kw38p";
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
 
-<nav class="bottom-nav" aria-label="Navigation principale">
-  <button class="nav-item active" type="button" data-screen="home"><svg viewBox="0 0 24 24"><path d="m3 10.5 9-7.5 9 7.5M5.5 9.5V21h13V9.5M9 21v-7h6v7"/></svg><span>Accueil</span></button>
-  <button class="nav-item" type="button" data-screen="explore"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>Explorer</span></button>
-  <button class="nav-item" type="button" data-screen="categories"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Catégories</span></button>
-  <button class="nav-item" type="button" data-screen="contact"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v9a2.5 2.5 0 0 1-2.5 2.5H10l-5 4v-4.8A2.5 2.5 0 0 1 4 14z"/><path d="M8 8h8M8 12h5"/></svg><span>Contact</span></button>
-  <button class="nav-item" type="button" data-screen="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Profil</span></button>
-</nav>
+    const CONFIG = {
+      agencyName: "42 Services Immobilier",
+      whatsapp: "22677328569"
+    };
 
-<script>
-"use strict";
+    const PROFILE_KEY = "42services_profile";
+    const FAVORITES_KEY = "42services_favorites";
 
-/* Configuration de l'agence. Le numéro est au format international sans + ni espaces. */
-const CONFIG = {
-  agencyName: "42 Services",
-  location: "Ouagadougou, Burkina Faso",
-  whatsappNumber: "22677328569",
-  currency: "F CFA"
-};
+    let properties = [];
+    let currentProperty = null;
+    let selectedCategory = "";
+    let toastTimer = null;
 
-/* Ces annonces sont uniquement des exemples de démonstration. */
-const DEMO_PROPERTIES = [
-  {id:"DEMO-001",city:"Ouagadougou",type:"Maison",deal:"Vente",title:"Villa contemporaine avec jardin",location:"Ouaga 2000, Ouagadougou",price:45000000,unit:"",beds:4,baths:3,area:280,tag:"Exemple",featured:true,image:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. Les informations, le prix, les documents et la disponibilité doivent être confirmés par l’agence avant toute décision."},
-  {id:"DEMO-002",city:"Ouagadougou",type:"Appartement",deal:"Location",title:"Appartement lumineux et moderne",location:"Zone du Bois, Ouagadougou",price:250000,unit:"/ mois",beds:2,baths:2,area:95,tag:"Exemple",featured:true,image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. Le loyer, les charges, les conditions de location et la disponibilité sont à confirmer auprès de l’agence."},
-  {id:"DEMO-003",city:"Ouagadougou",type:"Terrain",deal:"Vente",title:"Terrain pour projet résidentiel",location:"Karpala, Ouagadougou",price:12000000,unit:"",beds:null,baths:null,area:600,tag:"Exemple",featured:true,image:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. La superficie, la situation juridique, les limites et les documents doivent être vérifiés auprès de l’agence."},
-  {id:"DEMO-004",city:"Ouagadougou",type:"Maison",deal:"Location",title:"Maison familiale avec terrasse",location:"Dassasgho, Ouagadougou",price:350000,unit:"/ mois",beds:3,baths:2,area:160,tag:"Exemple",featured:false,image:"https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. Demandez les conditions de location, les équipements et les disponibilités exactes."},
-  {id:"DEMO-005",city:"Ouagadougou",type:"Local commercial",deal:"Location",title:"Local commercial bien situé",location:"Centre-ville, Ouagadougou",price:500000,unit:"/ mois",beds:null,baths:1,area:75,tag:"Exemple",featured:false,image:"https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. La destination autorisée, les charges et les conditions du bail doivent être vérifiées."},
-  {id:"DEMO-006",city:"Ouagadougou",type:"Appartement",deal:"Vente",title:"Appartement élégant avec balcon",location:"Patte d'Oie, Ouagadougou",price:28000000,unit:"",beds:3,baths:2,area:125,tag:"Exemple",featured:false,image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85",description:"Annonce de démonstration. Contactez l’agence pour connaître les équipements, les documents et les modalités d’acquisition."}
-];
+    const $ = id => document.getElementById(id);
 
-const REAL_LISTINGS_STORAGE_KEY = "42services_real_properties";
-const PROFILE_STORAGE_KEY = "42services_profile";
-const REQUESTS_STORAGE_KEY = "42services_local_requests";
-let properties = loadProperties();
-let currentProperty = null;
-let favorites = new Set();
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
 
-const $ = (selector, root=document) => root.querySelector(selector);
-const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
-const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const formatMoney = value => new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(Number(value)||0)+" "+CONFIG.currency;
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
 
-function loadProperties(){
-  try {
-    const real = JSON.parse(localStorage.getItem(REAL_LISTINGS_STORAGE_KEY)||"[]");
-    /* Dès qu'au moins une annonce réelle est publiée dans le stockage local, les exemples sont masqués. */
-    if(Array.isArray(real) && real.length > 0) return real;
-  } catch(error) { console.warn("Impossible de lire les annonces locales.", error); }
-  return [...DEMO_PROPERTIES];
-}
-function whatsappURL(message){
-  return "https://wa.me/"+CONFIG.whatsappNumber+"?text="+encodeURIComponent(message);
-}
-function generalMessage(){
-  return "Bonjour "+CONFIG.agencyName+", je souhaite obtenir des informations sur vos biens immobiliers. Pouvez-vous m'accompagner dans ma recherche ?";
-}
-function showToast(message){
-  const el=$("#toast");
-  el.textContent=message;
-  el.classList.add("show");
-  clearTimeout(showToast.timer);
-  showToast.timer=setTimeout(()=>el.classList.remove("show"),2800);
-}
-function applyAgency(){
-  document.title=CONFIG.agencyName+" Immobilier";
-  $("#brandName").textContent=CONFIG.agencyName;
-  $("#agencyLocation").textContent=CONFIG.location;
-  $("#agencyPhoneDisplay").textContent="+226 77 32 85 69";
-  $("#headerWhatsApp").href=whatsappURL(generalMessage());
-  $("#contactDirect").href=whatsappURL(generalMessage());
-}
-function selectedFilters(prefix){
-  return {
-    text: ($("#"+prefix+"Text")?.value||"").trim().toLocaleLowerCase("fr"),
-    city: $("#"+prefix+"City")?.value||"",
-    type: $("#"+prefix+"Type")?.value||"",
-    deal: $("#"+prefix+"Deal")?.value||"",
-    budget: $("#"+prefix+"Budget")?.value||"",
-    sort: $("#"+prefix+"Sort")?.value||"featured"
-  };
-}
-function filterProperties(prefix){
-  const f=selectedFilters(prefix);
-  let list=properties.filter(p=>{
-    const haystack=[p.title,p.location,p.city,p.id,p.type,p.deal].join(" ").toLocaleLowerCase("fr");
-    const typeMatches=!f.type || p.type===f.type || (f.type==="Maison" && p.type==="Villa");
-    return (!f.text||haystack.includes(f.text))&&(!f.city||p.city===f.city)&&typeMatches&&(!f.deal||p.deal===f.deal)&&(!f.budget||Number(p.price)<=Number(f.budget));
-  });
-  if(f.sort==="priceAsc") list.sort((a,b)=>Number(a.price)-Number(b.price));
-  else if(f.sort==="priceDesc") list.sort((a,b)=>Number(b.price)-Number(a.price));
-  else list.sort((a,b)=>Number(Boolean(b.featured))-Number(Boolean(a.featured)));
-  return list;
-}
-function propertyCard(p){
-  const isSaved=favorites.has(p.id);
-  return `<article class="property-card">
-    <div class="property-image"><img src="${escapeHTML(p.image||"")}" alt="${escapeHTML(p.title)}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80'">
-    <span class="badge">${escapeHTML(p.tag||p.deal||"Annonce")}</span>
-    <button type="button" class="fav ${isSaved?"saved":""}" data-favorite="${escapeHTML(p.id)}" aria-label="${isSaved?"Retirer des favoris":"Ajouter aux favoris"}">${isSaved?"♥":"♡"}</button></div>
-    <div class="property-content"><div class="location">⌖ ${escapeHTML(p.location||p.city||"Localisation à confirmer")}</div>
-    <h3 class="property-title">${escapeHTML(p.title)}</h3>
-    <div class="price">${formatMoney(p.price)} <small>${escapeHTML(p.unit||"")}</small></div>
-    <div class="specs">${p.beds!==null&&p.beds!==undefined?`<span>Chambres : ${escapeHTML(p.beds)}</span>`:""}${p.baths!==null&&p.baths!==undefined?`<span>Salles d'eau : ${escapeHTML(p.baths)}</span>`:""}<span>Surface : ${escapeHTML(p.area||"—")} m²</span><span>Réf. ${escapeHTML(p.id)}</span></div>
-    <div class="card-actions"><button class="btn light" type="button" data-details="${escapeHTML(p.id)}">Détails</button><button class="btn wa" type="button" data-order="${escapeHTML(p.id)}">Demander ↗</button></div></div></article>`;
-}
-function bindPropertyActions(root){
-  $$("[data-details]",root).forEach(btn=>btn.addEventListener("click",()=>openProperty(btn.dataset.details)));
-  $$("[data-order]",root).forEach(btn=>btn.addEventListener("click",()=>openProperty(btn.dataset.order)));
-  $$("[data-favorite]",root).forEach(btn=>btn.addEventListener("click",()=>{
-    const id=btn.dataset.favorite;
-    favorites.has(id)?favorites.delete(id):favorites.add(id);
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3200);
+    }
+
+    function formatMoney(value, unit = "") {
+      const number = Number(value || 0);
+      const formatted = new Intl.NumberFormat("fr-FR", {
+        maximumFractionDigits: 0
+      }).format(number);
+
+      return formatted + " FCFA" + (unit ? " " + unit : "");
+    }
+
+    function whatsappURL(message) {
+      return "https://wa.me/" + CONFIG.whatsapp +
+        "?text=" + encodeURIComponent(message);
+    }
+
+    function openGeneralWhatsApp() {
+      const message = "Bonjour " + CONFIG.agencyName +
+        ", je souhaite avoir des informations sur vos services immobiliers.";
+
+      window.open(whatsappURL(message), "_blank", "noopener");
+    }
+
+    function getFavorites() {
+      try {
+        const data = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveFavorites(favorites) {
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    }
+
+    function isFavorite(id) {
+      return getFavorites().includes(String(id));
+    }
+
+    function toggleFavorite(id) {
+      const favorites = getFavorites();
+      const value = String(id);
+      const index = favorites.indexOf(value);
+
+      if (index >= 0) {
+        favorites.splice(index, 1);
+        showToast("Annonce retirée des favoris.");
+      } else {
+        favorites.push(value);
+        showToast("Annonce ajoutée aux favoris ❤️");
+      }
+
+      saveFavorites(favorites);
+      renderAll();
+    }
+
+    // Transforme une annonce Supabase en données utilisées par le site.
+    function mapProperty(row) {
+      const images = Array.isArray(row.images) ? row.images : [];
+
+      return {
+        ...row,
+        id: String(row.id),
+        image: images[0] || "",
+        images,
+        location: [row.neighborhood, row.city].filter(Boolean).join(", "),
+        tag: row.deal || "",
+        featured: Boolean(row.featured),
+        unit: row.unit || ""
+      };
+    }
+
+    // ============================================
+    // CHARGEMENT DES ANNONCES DEPUIS SUPABASE
+    // ============================================
+
+    async function loadProperties() {
+      $("homeGrid").innerHTML =
+        '<div class="empty">Chargement des annonces…</div>';
+
+      $("exploreGrid").innerHTML =
+        '<div class="empty">Chargement des annonces…</div>';
+
+      const { data, error } = await supabaseClient
+        .from("properties")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Erreur de chargement Supabase :", error);
+        properties = [];
+        renderAll();
+        showToast("Impossible de charger les annonces. Vérifie Supabase.");
+        return;
+      }
+
+      properties = (data || []).map(mapProperty);
+
+      populateCities();
+      renderAll();
+
+      if (properties.length === 0) {
+        showToast("Aucune annonce publiée pour le moment.");
+      }
+    }
+
+    // ============================================
+    // FILTRES ET RECHERCHE
+    // ============================================
+
+    function getFilteredProperties() {
+      const search = $("searchInput").value.trim().toLowerCase();
+      const deal = $("dealFilter").value;
+      const type = $("typeFilter").value;
+      const city = $("cityFilter").value;
+
+      return properties.filter(property => {
+        const searchableText = [
+          property.title,
+          property.city,
+          property.neighborhood,
+          property.location,
+          property.type,
+          property.deal,
+          property.description
+        ].join(" ").toLowerCase();
+
+        if (search && !searchableText.includes(search)) return false;
+        if (deal && property.deal !== deal) return false;
+        if (type && String(property.type).toLowerCase() !== type.toLowerCase()) return false;
+        if (city && property.city !== city) return false;
+
+        if (
+          selectedCategory &&
+          String(property.type).toLowerCase() !== selectedCategory.toLowerCase()
+        ) return false;
+
+        return true;
+      });
+    }
+
+    function populateCities() {
+      const select = $("cityFilter");
+      const selected = select.value;
+
+      const cities = [...new Set(
+        properties.map(p => p.city).filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, "fr"));
+
+      select.innerHTML = '<option value="">Toutes les villes</option>';
+
+      cities.forEach(city => {
+        const option = document.createElement("option");
+        option.value = city;
+        option.textContent = city;
+        select.appendChild(option);
+      });
+
+      if (cities.includes(selected)) {
+        select.value = selected;
+      }
+    }
+
+    // ============================================
+    // AFFICHAGE DES ANNONCES
+    // ============================================
+
+    function propertyCard(property) {
+      const image = property.image ||
+        (Array.isArray(property.images) ? property.images[0] : "") ||
+        "";
+
+      const favorite = isFavorite(property.id);
+
+      const details = [
+        property.area ? escapeHTML(property.area) + " m²" : "",
+        property.beds ? escapeHTML(property.beds) + " chambres" : "",
+        property.baths ? escapeHTML(property.baths) + " salles de bain" : ""
+      ].filter(Boolean).join(" · ");
+
+      const priceUnit = property.unit || "";
+
+      return `
+        <article class="card">
+          ${
+            image
+              ? `<img class="card-image" src="${escapeHTML(image)}"
+                   alt="${escapeHTML(property.title)}"
+                   loading="lazy"
+                   onerror="this.style.display='none'">`
+              : `<div class="card-image" aria-label="Photo non disponible"></div>`
+          }
+
+          <div class="card-content">
+            <span class="badge">${escapeHTML(property.deal || "Annonce")}</span>
+
+            <h3>${escapeHTML(property.title)}</h3>
+
+            <div class="location">
+              📍 ${escapeHTML(property.location || property.city || "")}
+            </div>
+
+            <div class="price">
+              ${formatMoney(property.price, priceUnit)}
+            </div>
+
+            <div class="details">
+              ${details || escapeHTML(property.type || "Bien immobilier")}
+            </div>
+
+            <div class="card-actions">
+              <button class="details-button"
+                onclick="openProperty('${escapeHTML(property.id)}')">
+                Détails
+              </button>
+
+              <button class="contact-button"
+                onclick="contactProperty('${escapeHTML(property.id)}')">
+                Contacter
+              </button>
+            </div>
+
+            <button
+              style="width:100%;margin-top:8px;padding:8px;border:1px solid var(--border);background:white;border-radius:7px"
+              onclick="toggleFavorite('${escapeHTML(property.id)}')">
+              ${favorite ? "❤️ Retirer des favoris" : "🤍 Ajouter aux favoris"}
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderGrid(elementId, list, emptyMessage) {
+      const element = $(elementId);
+
+      if (!list.length) {
+        element.innerHTML =
+          `<div class="empty">${escapeHTML(emptyMessage)}</div>`;
+        return;
+      }
+
+      element.innerHTML = list.map(propertyCard).join("");
+    }
+
+    function renderAll() {
+      const filtered = getFilteredProperties();
+
+      const featured = properties.filter(p => p.featured);
+      const homeList = (featured.length ? featured : properties).slice(0, 6);
+
+      renderGrid(
+        "homeGrid",
+        homeList,
+        "Aucune annonce disponible pour le moment. Revenez bientôt."
+      );
+
+      renderGrid(
+        "exploreGrid",
+        filtered,
+        "Aucun résultat. Essaie de modifier tes critères de recherche."
+      );
+
+      const categoryList = selectedCategory
+        ? properties.filter(p =>
+            String(p.type).toLowerCase() === selectedCategory.toLowerCase()
+          )
+        : properties;
+
+      renderGrid(
+        "categoryGrid",
+        categoryList,
+        "Aucune annonce disponible dans cette catégorie."
+      );
+
+      const favorites = getFavorites();
+      const favoriteProperties = properties.filter(p =>
+        favorites.includes(String(p.id))
+      );
+
+      renderGrid(
+        "favoritesGrid",
+        favoriteProperties,
+        "Tu n'as pas encore ajouté d'annonce à tes favoris."
+      );
+
+      $("homeCount").textContent = properties.length + " annonce(s)";
+      $("exploreCount").textContent = filtered.length + " résultat(s)";
+    }
+
+    // ============================================
+    // NAVIGATION
+    // ============================================
+
+    function showScreen(screenName) {
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+      });
+
+      const target = $(screenName + "Screen");
+
+      if (target) {
+        target.classList.add("active");
+      }
+
+      document.querySelectorAll(".nav-button").forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.screen === screenName
+        );
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (screenName === "profile") {
+        renderAll();
+      }
+    }
+
+    document.querySelectorAll(".nav-button").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedCategory = "";
+        showScreen(button.dataset.screen);
+        renderAll();
+      });
+    });
+
+    function chooseCategory(category) {
+      selectedCategory = category || "";
+
+      $("typeFilter").value = category || "";
+
+      showScreen(category ? "explore" : "categories");
+      renderAll();
+    }
+
+    // ============================================
+    // DÉTAILS D'UNE ANNONCE
+    // ============================================
+
+    function openProperty(id) {
+      const property = properties.find(p => String(p.id) === String(id));
+
+      if (!property) {
+        showToast("Annonce introuvable.");
+        return;
+      }
+
+      currentProperty = property;
+
+      const image = property.image ||
+        (Array.isArray(property.images) ? property.images[0] : "");
+
+      $("modalImage").src = image || "";
+      $("modalImage").style.display = image ? "block" : "none";
+
+      $("modalBadge").textContent = property.deal || "Annonce";
+      $("modalTitle").textContent = property.title || "Bien immobilier";
+      $("modalPrice").textContent = formatMoney(property.price, property.unit || "");
+      $("modalLocation").textContent =
+        "📍 " + (property.location || property.city || "");
+
+      const details = [
+        property.type || "",
+        property.area ? property.area + " m²" : "",
+        property.beds ? property.beds + " chambres" : "",
+        property.baths ? property.baths + " salles de bain" : ""
+      ].filter(Boolean);
+
+      $("modalDetails").textContent = details.join(" · ");
+      $("modalDescription").textContent =
+        property.description || "Contactez-nous pour obtenir plus d'informations sur ce bien.";
+
+      const profile = readProfile();
+
+      $("requestName").value = profile.name || "";
+      $("requestPhone").value = profile.phone || "";
+      $("requestMessage").value =
+        "Bonjour, je souhaite obtenir plus d'informations sur : " +
+        (property.title || "votre annonce") + ".";
+
+      $("propertyModal").classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      $("propertyModal").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    $("propertyModal").addEventListener("click", event => {
+      if (event.target === $("propertyModal")) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    function contactProperty(id) {
+      const property = properties.find(p => String(p.id) === String(id));
+
+      if (!property) return;
+
+      const message =
+        "Bonjour " + CONFIG.agencyName +
+        ", je suis intéressé(e) par cette annonce : " +
+        property.title +
+        ". Prix : " + formatMoney(property.price, property.unit || "") +
+        ". Pouvez-vous me donner plus d'informations ?";
+
+      window.open(whatsappURL(message), "_blank", "noopener");
+    }
+
+    // ============================================
+    // PROFIL LOCAL DU CLIENT
+    // ============================================
+
+    function readProfile() {
+      try {
+        return JSON.parse(localStorage.getItem(PROFILE_KEY) || "{}");
+      } catch {
+        return {};
+      }
+    }
+
+    function saveProfile(name, phone) {
+      const profile = {
+        name: String(name || "").trim(),
+        phone: String(phone || "").trim()
+      };
+
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+      return profile;
+    }
+
+    function initializeProfile() {
+      const profile = readProfile();
+
+      $("profileName").value = profile.name || "";
+      $("profilePhone").value = profile.phone || "";
+    }
+
+    $("profileForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      saveProfile(
+        $("profileName").value,
+        $("profilePhone").value
+      );
+
+      showToast("Profil enregistré sur cet appareil.");
+    });
+
+    // ============================================
+    // ENREGISTREMENT DES DEMANDES DANS SUPABASE
+    // ============================================
+
+    async function saveRequestToSupabase({
+      propertyId = null,
+      name,
+      phone,
+      message
+    }) {
+      const payload = {
+        property_id: propertyId,
+        client_name: String(name || "").trim(),
+        client_phone: String(phone || "").trim(),
+        message: String(message || "").trim()
+      };
+
+      const { error } = await supabaseClient
+        .from("property_requests")
+        .insert([payload]);
+
+      if (error) {
+        console.error("Erreur d'enregistrement de la demande :", error);
+        return false;
+      }
+
+      return true;
+    }
+
+    $("requestForm").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (!currentProperty) {
+        showToast("Aucune annonce sélectionnée.");
+        return;
+      }
+
+      const name = $("requestName").value.trim();
+      const phone = $("requestPhone").value.trim();
+      const message = $("requestMessage").value.trim();
+
+      if (!name || !phone) {
+        showToast("Remplis ton nom et ton téléphone.");
+        return;
+      }
+
+      saveProfile(name, phone);
+
+      const property = currentProperty;
+
+      const fullMessage =
+        "DEMANDE D'INFORMATION IMMOBILIÈRE\n\n" +
+        "Nom : " + name + "\n" +
+        "Téléphone : " + phone + "\n" +
+        "Annonce : " + property.title + "\n" +
+        "Prix : " + formatMoney(property.price, property.unit || "") + "\n" +
+        "Message : " + (message || "Je souhaite plus d'informations.");
+
+      const button = $("requestForm").querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.textContent = "Enregistrement…";
+
+      const saved = await saveRequestToSupabase({
+        propertyId: property.id,
+        name,
+        phone,
+        message: fullMessage
+      });
+
+      button.disabled = false;
+      button.textContent = "Envoyer ma demande";
+
+      if (saved) {
+        showToast("Demande enregistrée. Ouverture de WhatsApp…");
+      } else {
+        showToast("WhatsApp va s'ouvrir. L'enregistrement en ligne a échoué.");
+      }
+
+      window.open(whatsappURL(fullMessage), "_blank", "noopener");
+      closeModal();
+    });
+
+    $("contactForm").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const name = $("contactName").value.trim();
+      const phone = $("contactPhone").value.trim();
+      const message = $("contactMessage").value.trim();
+
+      if (!name || !phone || !message) {
+        showToast("Remplis tous les champs.");
+        return;
+      }
+
+      saveProfile(name, phone);
+
+      const fullMessage =
+        "NOUVELLE DEMANDE — " + CONFIG.agencyName + "\n\n" +
+        "Nom : " + name + "\n" +
+        "Téléphone : " + phone + "\n" +
+        "Demande : " + message;
+
+      const button = $("contactForm").querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.textContent = "Envoi en cours…";
+
+      const saved = await saveRequestToSupabase({
+        propertyId: null,
+        name,
+        phone,
+        message: fullMessage
+      });
+
+      button.disabled = false;
+      button.textContent = "Envoyer ma demande";
+
+      if (saved) {
+        showToast("Demande enregistrée. Ouverture de WhatsApp…");
+      } else {
+        showToast("WhatsApp va s'ouvrir, mais la sauvegarde a échoué.");
+      }
+
+      window.open(whatsappURL(fullMessage), "_blank", "noopener");
+      $("contactForm").reset();
+    });
+
+    // ============================================
+    // FILTRES EN TEMPS RÉEL
+    // ============================================
+
+    ["searchInput", "dealFilter", "typeFilter", "cityFilter"].forEach(id => {
+      $(id).addEventListener("input", () => {
+        selectedCategory = "";
+        renderAll();
+      });
+
+      $(id).addEventListener("change", () => {
+        selectedCategory = "";
+        renderAll();
+      });
+    });
+
+    // ============================================
+    // DÉMARRAGE DE L'APPLICATION
+    // ============================================
+
+    $("year").textContent = new Date().getFullYear();
+
+    initializeProfile();
     renderAll();
-    showToast(favorites.has(id)?"Ajouté aux favoris":"Retiré des favoris");
-  }));
-}
-function renderOneGrid(gridSelector,countSelector,list){
-  const grid=$(gridSelector);
-  if(!grid)return;
-  grid.innerHTML=list.length?list.map(propertyCard).join(""):`<div class="empty"><strong>Aucun bien trouvé</strong>Essayez d'autres critères ou contactez l'agence pour décrire votre projet.</div>`;
-  if(countSelector)$(countSelector).textContent=list.length+" bien"+(list.length>1?"s":"")+" trouvé"+(list.length>1?"s":"");
-  bindPropertyActions(grid);
-}
-function renderAll(){
-  renderOneGrid("#homeGrid","#homeResultsCount",filterProperties("home"));
-  renderOneGrid("#exploreGrid","#exploreResultsCount",filterProperties("explore"));
-  renderOneGrid("#categoryGrid","#categoryResultsCount",categoryFiltered());
-}
-function categoryFiltered(){
-  const chosen=$("#screen-categories").dataset.category||"";
-  if(!chosen)return properties;
-  return properties.filter(p=>p.type===chosen||(chosen==="Maison"&&p.type==="Villa"));
-}
-function populateCities(){
-  const cities=[...new Set(properties.map(p=>p.city||"").filter(Boolean))].sort((a,b)=>a.localeCompare(b,"fr"));
-  ["cityFilter","exploreCity"].forEach(id=>{
-    const select=$("#"+id),old=select.value;
-    select.innerHTML='<option value="">Toutes les villes</option>'+cities.map(c=>`<option value="${escapeHTML(c)}">${escapeHTML(c)}</option>`).join("");
-    if(cities.includes(old))select.value=old;
-  });
-}
-function syncHomeToExplore(){
-  $("#exploreText").value=$("#searchText").value;
-  $("#exploreCity").value=$("#cityFilter").value;
-  $("#exploreType").value=$("#typeFilter").value;
-  $("#exploreDeal").value=$("#dealFilter").value;
-  $("#exploreBudget").value=$("#budgetFilter").value;
-}
-function syncExploreToHome(){
-  $("#searchText").value=$("#exploreText").value;
-  $("#cityFilter").value=$("#exploreCity").value;
-  $("#typeFilter").value=$("#exploreType").value;
-  $("#dealFilter").value=$("#exploreDeal").value;
-  $("#budgetFilter").value=$("#exploreBudget").value;
-}
-function showScreen(name){
-  const valid=["home","explore","categories","contact","profile"];
-  if(!valid.includes(name))name="home";
-  valid.forEach(screen=>$("#screen-"+screen).classList.toggle("hidden",screen!==name));
-  $$(".nav-item").forEach(btn=>btn.classList.toggle("active",btn.dataset.screen===name));
-  window.scrollTo({top:0,behavior:"auto"});
-  if(name==="explore")renderOneGrid("#exploreGrid","#exploreResultsCount",filterProperties("explore"));
-  if(name==="categories")renderOneGrid("#categoryGrid","#categoryResultsCount",categoryFiltered());
-}
-function openProperty(id){
-  currentProperty=properties.find(p=>String(p.id)===String(id));
-  if(!currentProperty){showToast("Ce bien n'est plus disponible.");return;}
-  const p=currentProperty;
-  $("#modalImage").src=p.image||"";
-  $("#modalImage").alt=p.title||"Bien immobilier";
-  $("#modalLocation").textContent=(p.location||p.city||"Localisation à confirmer")+" · Réf. "+p.id;
-  $("#modalTitle").textContent=p.title||"Bien immobilier";
-  $("#modalPrice").textContent=formatMoney(p.price)+(p.unit||"");
-  $("#modalDescription").textContent=p.description||"Contactez l'agence pour obtenir les informations détaillées sur ce bien.";
-  const specs=[];
-  if(p.type)specs.push(p.type);
-  if(p.deal)specs.push(p.deal==="Vente"?"À vendre":"À louer");
-  if(p.beds!==null&&p.beds!==undefined)specs.push(p.beds+" chambre(s)");
-  if(p.baths!==null&&p.baths!==undefined)specs.push(p.baths+" salle(s) d'eau");
-  if(p.area)specs.push(p.area+" m²");
-  $("#modalSpecs").innerHTML=specs.map(s=>"<span>"+escapeHTML(s)+"</span>").join("");
-  const profile=readProfile();
-  $("#orderName").value=profile.name||"";
-  $("#orderPhone").value=profile.phone||"";
-  $("#modalBackdrop").classList.add("open");
-  document.body.style.overflow="hidden";
-}
-function closeModal(){
-  $("#modalBackdrop").classList.remove("open");
-  document.body.style.overflow="";
-}
-function readProfile(){
-  try{return JSON.parse(localStorage.getItem(PROFILE_STORAGE_KEY)||"{}")}catch(e){return {}}
-}
-function saveRequestLocal(request){
-  try{
-    const old=JSON.parse(localStorage.getItem(REQUESTS_STORAGE_KEY)||"[]");
-    const list=Array.isArray(old)?old:[];
-    list.unshift({...request,createdAt:new Date().toISOString()});
-    localStorage.setItem(REQUESTS_STORAGE_KEY,JSON.stringify(list.slice(0,20)));
-  }catch(e){console.warn("La demande locale n'a pas pu être enregistrée.",e);}
-  renderRequests();
-}
-function renderRequests(){
-  let requests=[];
-  try{requests=JSON.parse(localStorage.getItem(REQUESTS_STORAGE_KEY)||"[]");}catch(e){}
-  const root=$("#profileRequests");
-  if(!Array.isArray(requests)||!requests.length){
-    root.innerHTML='<div class="request-item">Aucune demande enregistrée pour le moment.</div>';
-    return;
-  }
-  root.innerHTML=requests.map(r=>`<div class="request-item"><strong>${escapeHTML(r.title||"Demande de contact")}</strong><span>${escapeHTML(r.reference||"")}</span><br><span>${escapeHTML(r.createdAt?new Date(r.createdAt).toLocaleDateString("fr-FR"):"")}</span></div>`).join("");
-}
-function refreshProfile(){
-  const p=readProfile();
-  $("#profileDisplayName").textContent=p.name||"Bienvenue";
-  $("#profileDisplayPhone").textContent=p.phone||"Ajoutez vos coordonnées";
-  $("#profileAvatar").textContent=p.name?p.name.trim().charAt(0).toLocaleUpperCase("fr"):"♙";
-}
-function initializeProfile(){
-  const p=readProfile();
-  $("#profileName").value=p.name||"";
-  $("#profilePhone").value=p.phone||"";
-  refreshProfile();
-  renderRequests();
-}
-
-$("#searchForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  syncHomeToExplore();
-  renderAll();
-  showScreen("explore");
-});
-$("#exploreSearchForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  syncExploreToHome();
-  renderAll();
-  showScreen("explore");
-});
-["searchText","cityFilter","typeFilter","dealFilter","budgetFilter","homeSort"].forEach(id=>{
-  $("#"+id).addEventListener(id==="searchText"?"input":"change",()=>renderAll());
-});
-["exploreText","exploreCity","exploreType","exploreDeal","exploreBudget","exploreSort"].forEach(id=>{
-  $("#"+id).addEventListener(id==="exploreText"?"input":"change",()=>renderAll());
-});
-$$("[data-screen]").forEach(btn=>btn.addEventListener("click",e=>{
-  e.preventDefault();
-  showScreen(btn.dataset.screen);
-}));
-$$("[data-go]").forEach(btn=>btn.addEventListener("click",()=>showScreen(btn.dataset.go)));
-$$("[data-category]").forEach(btn=>btn.addEventListener("click",()=>{
-  const chosen=btn.dataset.category||"";
-  $("#screen-categories").dataset.category=chosen;
-  $$("#screen-categories [data-category]").forEach(b=>b.classList.toggle("active",b===btn&&Boolean(chosen)));
-  showScreen("categories");
-}));
-$("#modalClose").addEventListener("click",closeModal);
-$("#modalBackdrop").addEventListener("click",e=>{if(e.target===$("#modalBackdrop"))closeModal();});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-$("#orderForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  if(!currentProperty)return;
-  const name=$("#orderName").value.trim(),phone=$("#orderPhone").value.trim();
-  if(!name||!phone){showToast("Saisissez votre nom et votre numéro WhatsApp.");return;}
-  localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify({name,phone}));
-  refreshProfile();
-  saveRequestLocal({title:currentProperty.title,reference:currentProperty.id,name,phone});
-  const p=currentProperty;
-  const message=`Bonjour ${CONFIG.agencyName}, je souhaite des informations sur ce bien.\n\nRéférence : ${p.id}\nBien : ${p.title}\nType : ${p.type}\nOpération : ${p.deal}\nPrix affiché : ${formatMoney(p.price)}${p.unit||""}\nLocalisation : ${p.location}\n\nNom complet : ${name}\nMon numéro WhatsApp : ${phone}\n\nMerci de confirmer la disponibilité et les conditions.`;
-  window.open(whatsappURL(message),"_blank","noopener");
-  closeModal();
-  showToast("Votre demande est prête dans WhatsApp. Confirmez l'envoi.");
-});
-$("#contactForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const name=$("#contactName").value.trim(),phone=$("#contactPhone").value.trim();
-  if(!name||!phone){showToast("Veuillez remplir les deux champs.");return;}
-  localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify({name,phone}));
-  refreshProfile();
-  saveRequestLocal({title:"Demande générale",reference:"Contact agence",name,phone});
-  const message=`Bonjour ${CONFIG.agencyName}, je souhaite être contacté(e) au sujet de vos biens immobiliers.\n\nNom complet : ${name}\nMon numéro WhatsApp : ${phone}\n\nMerci de me recontacter.`;
-  window.open(whatsappURL(message),"_blank","noopener");
-  showToast("Votre message est prêt dans WhatsApp. Confirmez l'envoi.");
-});
-$("#profileForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  const name=$("#profileName").value.trim(),phone=$("#profilePhone").value.trim();
-  if(!name||!phone){showToast("Veuillez renseigner votre nom et votre numéro.");return;}
-  localStorage.setItem(PROFILE_STORAGE_KEY,JSON.stringify({name,phone}));
-  refreshProfile();
-  showToast("Profil enregistré sur cet appareil.");
-});
-$("#profileName").addEventListener("input",refreshProfile);
-$("#profilePhone").addEventListener("input",()=>{
-  const phone=$("#profilePhone").value.trim();
-  $("#profileDisplayPhone").textContent=phone||"Ajoutez vos coordonnées";
-});
-
-applyAgency();
-populateCities();
-renderAll();
-initializeProfile();
-showScreen("home");
-
-/*
-  NOTE POUR LA SUITE :
-  - Les données actuelles sont stockées dans le navigateur : elles ne sont pas synchronisées entre clients.
-  - La clé locale 42services_real_properties permet au prototype de masquer les annonces de démonstration lorsqu'une liste non vide d'annonces réelles est présente.
-  - Pour que la publication de l'agence soit visible par tous les visiteurs, il faudra connecter l'administration à Supabase (ou à une autre base de données) et récupérer les annonces publiées depuis le serveur.
-  - Ne stockez jamais de mot de passe ni de clé secrète dans ce fichier HTML.
-*/
-</script>
+    loadProperties();
+  </script>
 </body>
 </html>
