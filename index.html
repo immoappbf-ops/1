@@ -55,8 +55,8 @@
       gap: 12px;
       border-bottom: 1px solid var(--border);
       box-shadow: 0 3px 14px rgba(18,48,74,.05);
-      position: sticky;
-      top: 0;
+      position: relative;
+      top: auto;
       z-index: 20;
     }
 
@@ -158,7 +158,7 @@
     }
 
     header {
-      top: 51px;
+      top: auto;
     }
 
     @media (max-width: 480px) {
@@ -171,7 +171,7 @@
         font-size: 13px;
       }
       header {
-        top: 48px;
+        top: auto;
       }
     }
 
@@ -983,34 +983,67 @@
     // CHARGEMENT DES ANNONCES DEPUIS SUPABASE
     // ============================================
 
+    const PROPERTIES_CACHE_KEY = "42services_properties_cache_v1";
+
     async function loadProperties() {
-      $("homeGrid").innerHTML =
-        '<div class="empty">Chargement des annonces…</div>';
-
-      $("exploreGrid").innerHTML =
-        '<div class="empty">Chargement des annonces…</div>';
-
-      const { data, error } = await supabaseClient
-        .from("properties")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        console.error("Erreur de chargement Supabase :", error);
-        properties = [];
-        renderAll();
-        showToast("Impossible de charger les annonces. Vérifie Supabase.");
-        return;
+      // Affiche d'abord les annonces mémorisées pendant cette session
+      // pour que l'écran ne reste pas vide si le réseau est lent.
+      let hasCachedProperties = false;
+      try {
+        const cached = sessionStorage.getItem(PROPERTIES_CACHE_KEY);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          if (Array.isArray(parsed)) {
+            properties = parsed.map(mapProperty);
+            populateCities();
+            populateNeighborhoods();
+            renderAll();
+            hasCachedProperties = true;
+          }
+        }
+      } catch (cacheError) {
+        console.warn("Cache des annonces indisponible :", cacheError);
       }
 
-      properties = (data || []).map(mapProperty);
+      if (!hasCachedProperties) {
+        $("homeGrid").innerHTML =
+          '<div class="empty">Chargement des annonces…</div>';
+        $("exploreGrid").innerHTML =
+          '<div class="empty">Chargement des annonces…</div>';
+      }
 
-      populateCities();
-      populateNeighborhoods();
-      renderAll();
+      try {
+        const { data, error } = await supabaseClient
+          .from("properties")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-      if (properties.length === 0) {
-        showToast("Aucune annonce publiée pour le moment.");
+        if (error) throw error;
+
+        properties = (data || []).map(mapProperty);
+
+        try {
+          sessionStorage.setItem(PROPERTIES_CACHE_KEY, JSON.stringify(properties));
+        } catch (cacheError) {
+          console.warn("Impossible de mémoriser les annonces :", cacheError);
+        }
+
+        populateCities();
+        populateNeighborhoods();
+        renderAll();
+
+        if (properties.length === 0) {
+          showToast("Aucune annonce publiée pour le moment.");
+        }
+      } catch (error) {
+        console.error("Erreur de chargement Supabase :", error);
+        if (!hasCachedProperties) {
+          properties = [];
+          renderAll();
+          showToast("Impossible de charger les annonces. Vérifie ta connexion puis réessaie.");
+        } else {
+          showToast("Affichage des annonces mémorisées. Actualise quand la connexion sera meilleure.");
+        }
       }
     }
 
@@ -1562,6 +1595,10 @@
     }
 
     updateInstallBarVisibility();
+    window.addEventListener("pageshow", updateInstallBarVisibility);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) updateInstallBarVisibility();
+    });
 
     // Installation PWA : le bouton reste disponible sur le site web
     // tant que la page n'est pas ouverte en mode application installée.
