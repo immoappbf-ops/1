@@ -151,6 +151,12 @@
       outline-offset: 2px;
     }
 
+    /* Une fois l'application installée et ouverte comme une application,
+       la barre d'installation n'est plus affichée. */
+    body.app-installed .install-bar {
+      display: none !important;
+    }
+
     header {
       top: 51px;
     }
@@ -1536,10 +1542,30 @@
     renderAll();
     loadProperties();
 
-    // Installation PWA : le bouton reste visible même si le navigateur
-    // ne propose pas immédiatement l'installation native.
-    let deferredInstallPrompt = null;
+    // Détecte si le site est ouvert depuis l'application installée.
+    // Dans ce cas, on masque complètement la barre d'installation.
     const installAppButton = $("installAppButton");
+    const installBar = document.querySelector(".install-bar");
+
+    function isRunningAsInstalledApp() {
+      return window.matchMedia("(display-mode: standalone)").matches ||
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.matchMedia("(display-mode: minimal-ui)").matches ||
+        window.navigator.standalone === true ||
+        document.referrer.startsWith("android-app://");
+    }
+
+    function updateInstallBarVisibility() {
+      const installedMode = isRunningAsInstalledApp();
+      document.body.classList.toggle("app-installed", installedMode);
+      if (installBar) installBar.setAttribute("aria-hidden", installedMode ? "true" : "false");
+    }
+
+    updateInstallBarVisibility();
+
+    // Installation PWA : le bouton reste disponible sur le site web
+    // tant que la page n'est pas ouverte en mode application installée.
+    let deferredInstallPrompt = null;
 
     window.addEventListener("beforeinstallprompt", event => {
       event.preventDefault();
@@ -1567,8 +1593,19 @@
 
     window.addEventListener("appinstalled", () => {
       showToast("42 Services Immobilier a été installée avec succès.");
-      installAppButton.textContent = "✓ App installée";
+      deferredInstallPrompt = null;
+      updateInstallBarVisibility();
+      // Dans le navigateur, on masque aussi le bouton après installation.
+      if (installBar) installBar.style.display = "none";
     });
+
+    // Réévalue le mode d'affichage si le navigateur le modifie.
+    const standaloneQuery = window.matchMedia("(display-mode: standalone)");
+    if (standaloneQuery.addEventListener) {
+      standaloneQuery.addEventListener("change", updateInstallBarVisibility);
+    } else if (standaloneQuery.addListener) {
+      standaloneQuery.addListener(updateInstallBarVisibility);
+    }
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
