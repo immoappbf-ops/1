@@ -46,8 +46,8 @@
 
     header {
       background: var(--white);
-      min-height: 88px;
-      padding: 8px 16px;
+      min-height: 76px;
+      padding: 5px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -60,8 +60,10 @@
     }
 
     .logo {
-      width: 116px;
-      height: 72px;
+      width: 154px;
+      height: 66px;
+      transform: scale(1.04);
+      transform-origin: left center;
       object-fit: contain;
       object-position: left center;
       border-radius: 8px;
@@ -91,8 +93,8 @@
     .header-whatsapp span { font-size: 17px; }
 
     @media (max-width: 380px) {
-      header { padding-left: 11px; padding-right: 11px; }
-      .logo { width: 104px; height: 66px; }
+      header { min-height: 72px; padding: 4px 10px; gap: 8px; }
+      .logo { width: 132px; height: 62px; }
       .header-whatsapp { padding: 8px 9px; font-size: 11px; }
     }
 
@@ -848,6 +850,42 @@
     let stories = [];
     let currentStory = null;
 
+    // Exemples visuels temporaires pour que la rubrique ne soit pas vide au lancement.
+    // Ce sont des inspirations immobilières, pas des biens réellement disponibles.
+    const DEMO_STORIES = [
+      {
+        id: "demo-story-villa",
+        title: "Inspiration villa",
+        caption: "Exemple visuel d’une villa. Cette image est illustrative : disponibilité et prix non confirmés.",
+        media_url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80",
+        media_type: "image",
+        created_at: new Date().toISOString(),
+        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
+        demo: true
+      },
+      {
+        id: "demo-story-interieur",
+        title: "Inspiration intérieur",
+        caption: "Exemple d’aménagement intérieur. Ce n’est pas une annonce immobilière confirmée.",
+        media_url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80",
+        media_type: "image",
+        created_at: new Date().toISOString(),
+        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
+        demo: true
+      },
+      {
+        id: "demo-story-terrain",
+        title: "Conseil immobilier",
+        caption: "Avant de louer ou d’acheter, vérifiez les documents et les conditions du bien. Exemple éditorial, pas une offre.",
+        media_url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80",
+        media_type: "image",
+        created_at: new Date().toISOString(),
+        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
+        demo: true
+      }
+    ];
+
+
     function storyWhatsAppURL(story) {
       const text = "Bonjour " + CONFIG.agencyName +
         ", je souhaite des informations sur cette actualité : " +
@@ -860,6 +898,8 @@
     async function loadStories() {
       const rail = $("storiesRail");
       if (!rail) return;
+
+      let liveStories = [];
       const { data, error } = await supabaseClient
         .from("story_posts")
         .select("id,title,caption,media_url,media_type,created_at,expires_at")
@@ -867,14 +907,15 @@
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Chargement des actualités :", error);
-        rail.innerHTML = '<div class="story-empty">Les actualités temporaires seront bientôt disponibles.</div>';
-        return;
+        // La rubrique reste visible même avant l'installation du SQL.
+        console.warn("Publications Supabase non disponibles, affichage des exemples :", error.message);
+      } else {
+        liveStories = data || [];
       }
 
-      stories = data || [];
+      stories = liveStories.length ? liveStories : DEMO_STORIES;
       if (!stories.length) {
-        rail.innerHTML = '<div class="story-empty">Aucune actualité pour le moment. Revenez bientôt !</div>';
+        rail.innerHTML = '<div class="story-empty">Les actualités immobilières seront bientôt disponibles.</div>';
         return;
       }
 
@@ -883,7 +924,7 @@
           ? `<video src="${escapeHTML(story.media_url)}" muted playsinline preload="metadata"></video>`
           : `<img src="${escapeHTML(story.media_url)}" alt="" loading="lazy">`;
         const label = story.title || (story.media_type === "video" ? "Vidéo" : "Nouveau bien");
-        const created = new Date(story.created_at).toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"});
+        const created = story.demo ? "Exemple" : new Date(story.created_at).toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"});
         return `<button type="button" class="story-item" onclick="openStory(${index})" aria-label="Voir ${escapeHTML(label)}">
           <span class="story-ring">${media}</span>
           <span class="story-label">${escapeHTML(label)}</span>
@@ -905,6 +946,7 @@
         wrap.innerHTML = `<img src="${escapeHTML(story.media_url)}" alt="${escapeHTML(story.title || "Publication immobilière")}">`;
       }
       $("storyContact").href = storyWhatsAppURL(story);
+      $("storyContact").textContent = story.demo ? "Contacter l’agence pour une offre réelle" : "Demander des informations sur WhatsApp";
       $("storyViewer").classList.add("open");
       document.body.style.overflow = "hidden";
     }
