@@ -46,8 +46,7 @@
 
     header {
       background: var(--white);
-      min-height: 76px;
-      padding: 5px 14px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -60,43 +59,32 @@
     }
 
     .logo {
-      width: 154px;
-      height: 66px;
-      transform: scale(1.04);
-      transform-origin: left center;
+      width: 70px;
+      height: 56px;
       object-fit: contain;
-      object-position: left center;
       border-radius: 8px;
-      flex: 0 1 auto;
-      display: block;
+      flex: 0 0 auto;
     }
 
     .header-whatsapp {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      min-height: 40px;
-      padding: 9px 11px;
+      gap: 7px;
+      min-height: 42px;
+      padding: 9px 13px;
       border: 0;
-      border-radius: 11px;
+      border-radius: 12px;
       background: #128c7e;
       color: #fff;
       text-decoration: none;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
-      box-shadow: 0 4px 12px rgba(18,140,126,.15);
+      box-shadow: 0 4px 12px rgba(18,140,126,.18);
       white-space: nowrap;
-      flex: 0 0 auto;
     }
 
-    .header-whatsapp span { font-size: 17px; }
-
-    @media (max-width: 380px) {
-      header { min-height: 72px; padding: 4px 10px; gap: 8px; }
-      .logo { width: 132px; height: 62px; }
-      .header-whatsapp { padding: 8px 9px; font-size: 11px; }
-    }
+    .header-whatsapp span { font-size: 18px; }
 
     .container {
       width: 100%;
@@ -489,32 +477,6 @@
       padding: 20px 10px;
     }
 
-
-    .stories-section { margin: 8px 0 24px; }
-    .stories-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; margin: 18px 0 12px; }
-    .stories-heading h2 { font-size:20px; color:var(--navy); }
-    .stories-heading span { font-size:12px; color:var(--muted); }
-    .stories-rail { display:flex; gap:13px; overflow-x:auto; padding:3px 2px 10px; scrollbar-width:thin; }
-    .story-item { flex:0 0 78px; width:78px; border:0; background:transparent; padding:0; color:var(--text); text-align:center; }
-    .story-ring { display:block; width:72px; height:72px; margin:0 auto 7px; padding:3px; border-radius:50%; background:linear-gradient(135deg,#087f8c,#f29f3d); }
-    .story-ring img,.story-ring video,.story-ring .story-fallback { display:flex; align-items:center; justify-content:center; width:100%; height:100%; object-fit:cover; border-radius:50%; background:#e5f6f7; color:var(--navy); font-size:22px; }
-    .story-label { display:block; font-size:11px; line-height:1.3; font-weight:700; overflow-wrap:anywhere; }
-    .story-time { display:block; font-size:10px; color:var(--muted); margin-top:3px; }
-    .story-empty { color:var(--muted); font-size:13px; padding:12px 0; }
-    .story-viewer { position:fixed; inset:0; z-index:200; background:rgba(8,17,28,.96); display:none; align-items:center; justify-content:center; padding:14px; }
-    .story-viewer.open { display:flex; }
-    .story-viewer-inner { position:relative; width:min(100%,480px); height:min(86dvh,820px); display:flex; flex-direction:column; overflow:hidden; border-radius:18px; background:#101820; color:#fff; }
-    .story-progress { height:3px; margin:10px 10px 0; background:#ffffff55; border-radius:4px; overflow:hidden; }
-    .story-progress span { display:block; width:100%; height:100%; background:#fff; }
-    .story-viewer-top { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; gap:12px; }
-    .story-viewer-top strong { font-size:14px; }
-    .story-close { border:0; border-radius:50%; width:36px; height:36px; background:#ffffff22; color:#fff; font-size:23px; }
-    .story-media-wrap { flex:1; min-height:0; display:flex; align-items:center; justify-content:center; }
-    .story-media-wrap img,.story-media-wrap video { width:100%; height:100%; object-fit:contain; }
-    .story-caption { padding:12px 15px 16px; font-size:14px; line-height:1.5; white-space:pre-wrap; }
-    .story-contact { display:block; margin:0 14px 14px; padding:12px; border-radius:10px; background:#128c7e; color:#fff; text-align:center; text-decoration:none; font-weight:800; }
-    @media(min-width:700px){ .story-ring{width:78px;height:78px}.story-item{flex-basis:86px;width:86px} }
-
     @media (min-width: 700px) {
       .container {
         padding: 25px 22px;
@@ -571,17 +533,6 @@
       <span>☏</span> WhatsApp
     </a>
   </header>
-
-
-  <section class="stories-section container" aria-label="Publications temporaires">
-    <div class="stories-heading">
-      <h2>Actualités immobilières</h2>
-      <span>Disponibles 24 h</span>
-    </div>
-    <div id="storiesRail" class="stories-rail">
-      <div class="story-empty">Chargement des actualités…</div>
-    </div>
-  </section>
 
   <main class="container">
     <section id="homeScreen" class="screen active">
@@ -807,20 +758,6 @@
     </div>
   </div>
 
-
-  <div id="storyViewer" class="story-viewer" role="dialog" aria-modal="true" aria-label="Publication temporaire">
-    <div class="story-viewer-inner">
-      <div class="story-progress"><span></span></div>
-      <div class="story-viewer-top">
-        <strong id="storyViewerTitle">Actualité immobilière</strong>
-        <button class="story-close" type="button" onclick="closeStory()" aria-label="Fermer">×</button>
-      </div>
-      <div id="storyMediaWrap" class="story-media-wrap"></div>
-      <div id="storyCaption" class="story-caption"></div>
-      <a id="storyContact" class="story-contact" href="#" target="_blank" rel="noopener">Demander des informations sur WhatsApp</a>
-    </div>
-  </div>
-
   <div id="toast" class="toast" role="status"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -844,123 +781,6 @@
       agencyName: "42 Services Immobilier",
       whatsapp: "22677328569"
     };
-
-
-    // Publications temporaires (stories) : affichage public pendant 24 heures.
-    let stories = [];
-    let currentStory = null;
-
-    // Exemples visuels temporaires pour que la rubrique ne soit pas vide au lancement.
-    // Ce sont des inspirations immobilières, pas des biens réellement disponibles.
-    const DEMO_STORIES = [
-      {
-        id: "demo-story-villa",
-        title: "Inspiration villa",
-        caption: "Exemple visuel d’une villa. Cette image est illustrative : disponibilité et prix non confirmés.",
-        media_url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80",
-        media_type: "image",
-        created_at: new Date().toISOString(),
-        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
-        demo: true
-      },
-      {
-        id: "demo-story-interieur",
-        title: "Inspiration intérieur",
-        caption: "Exemple d’aménagement intérieur. Ce n’est pas une annonce immobilière confirmée.",
-        media_url: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80",
-        media_type: "image",
-        created_at: new Date().toISOString(),
-        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
-        demo: true
-      },
-      {
-        id: "demo-story-terrain",
-        title: "Conseil immobilier",
-        caption: "Avant de louer ou d’acheter, vérifiez les documents et les conditions du bien. Exemple éditorial, pas une offre.",
-        media_url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=80",
-        media_type: "image",
-        created_at: new Date().toISOString(),
-        expires_at: new Date(Date.now() + 24*60*60*1000).toISOString(),
-        demo: true
-      }
-    ];
-
-
-    function storyWhatsAppURL(story) {
-      const text = "Bonjour " + CONFIG.agencyName +
-        ", je souhaite des informations sur cette actualité : " +
-        (story.title || "Publication immobilière") +
-        (story.caption ? ". " + story.caption : "") +
-        (story.media_url ? "\nPhoto/vidéo : " + story.media_url : "");
-      return whatsappURL(text);
-    }
-
-    async function loadStories() {
-      const rail = $("storiesRail");
-      if (!rail) return;
-
-      let liveStories = [];
-      const { data, error } = await supabaseClient
-        .from("story_posts")
-        .select("id,title,caption,media_url,media_type,created_at,expires_at")
-        .gt("expires_at", new Date().toISOString())
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        // La rubrique reste visible même avant l'installation du SQL.
-        console.warn("Publications Supabase non disponibles, affichage des exemples :", error.message);
-      } else {
-        liveStories = data || [];
-      }
-
-      stories = liveStories.length ? liveStories : DEMO_STORIES;
-      if (!stories.length) {
-        rail.innerHTML = '<div class="story-empty">Les actualités immobilières seront bientôt disponibles.</div>';
-        return;
-      }
-
-      rail.innerHTML = stories.map((story, index) => {
-        const media = story.media_type === "video"
-          ? `<video src="${escapeHTML(story.media_url)}" muted playsinline preload="metadata"></video>`
-          : `<img src="${escapeHTML(story.media_url)}" alt="" loading="lazy">`;
-        const label = story.title || (story.media_type === "video" ? "Vidéo" : "Nouveau bien");
-        const created = story.demo ? "Exemple" : new Date(story.created_at).toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"});
-        return `<button type="button" class="story-item" onclick="openStory(${index})" aria-label="Voir ${escapeHTML(label)}">
-          <span class="story-ring">${media}</span>
-          <span class="story-label">${escapeHTML(label)}</span>
-          <span class="story-time">${created}</span>
-        </button>`;
-      }).join("");
-    }
-
-    function openStory(index) {
-      const story = stories[index];
-      if (!story) return;
-      currentStory = story;
-      $("storyViewerTitle").textContent = story.title || "Actualité immobilière";
-      $("storyCaption").textContent = story.caption || "";
-      const wrap = $("storyMediaWrap");
-      if (story.media_type === "video") {
-        wrap.innerHTML = `<video src="${escapeHTML(story.media_url)}" controls autoplay playsinline></video>`;
-      } else {
-        wrap.innerHTML = `<img src="${escapeHTML(story.media_url)}" alt="${escapeHTML(story.title || "Publication immobilière")}">`;
-      }
-      $("storyContact").href = storyWhatsAppURL(story);
-      $("storyContact").textContent = story.demo ? "Contacter l’agence pour une offre réelle" : "Demander des informations sur WhatsApp";
-      $("storyViewer").classList.add("open");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeStory() {
-      $("storyViewer").classList.remove("open");
-      $("storyMediaWrap").innerHTML = "";
-      document.body.style.overflow = "";
-      currentStory = null;
-    }
-
-    $("storyViewer").addEventListener("click", event => {
-      if (event.target === $("storyViewer")) closeStory();
-    });
 
     const PROFILE_KEY = "42services_profile";
     const FAVORITES_KEY = "42services_favorites";
@@ -1626,7 +1446,6 @@
     initializeProfile();
     renderAll();
     loadProperties();
-    loadStories();
   </script>
 </body>
 </html>
