@@ -153,8 +153,16 @@
 
     /* Une fois l'application installée et ouverte comme une application,
        la barre d'installation n'est plus affichée. */
-    body.app-installed .install-bar {
+    body.app-installed .install-bar,
+    html.app-installed .install-bar {
       display: none !important;
+    }
+
+    /* Fallback CSS : masque la barre directement en mode application installée. */
+    @media (display-mode: standalone),
+           (display-mode: fullscreen),
+           (display-mode: minimal-ui) {
+      .install-bar { display: none !important; }
     }
 
     header {
@@ -858,6 +866,16 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
+    // Détection précoce : masque la barre avant l'initialisation du reste du site.
+    (function markInstalledAppEarly() {
+      const standalone = window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches ||
+        window.navigator.standalone === true ||
+        document.referrer.startsWith('android-app://');
+      if (standalone) document.documentElement.classList.add('app-installed');
+    })();
+
     "use strict";
 
     // ============================================
@@ -1632,8 +1650,6 @@
       showToast("42 Services Immobilier a été installée avec succès.");
       deferredInstallPrompt = null;
       updateInstallBarVisibility();
-      // Dans le navigateur, on masque aussi le bouton après installation.
-      if (installBar) installBar.style.display = "none";
     });
 
     // Réévalue le mode d'affichage si le navigateur le modifie.
