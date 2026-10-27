@@ -178,6 +178,18 @@ td strong{display:block;font-size:12px;margin-bottom:3px}
   .stats{grid-template-columns:1fr 1fr}
   .stat:last-child{grid-column:1/-1}
 }
+
+/* Publications temporaires */
+.story-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:14px}
+.story-admin-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.story-admin-card img,.story-admin-card video{width:100%;height:170px;object-fit:cover;background:#edf0f5;display:block}
+.story-admin-card .itembody{padding:12px}
+.story-admin-card h3{font-size:14px;margin:0 0 7px}
+.story-admin-card p{font-size:11px;line-height:1.5;color:var(--mut);overflow-wrap:anywhere}
+.story-status{display:inline-block;border-radius:20px;padding:5px 8px;font-size:10px;font-weight:bold}
+.story-status.active{background:#eaf4ed;color:#1e604b}
+.story-status.expired{background:#fff0ef;color:#b83232}
+
 </style>
 </head>
 
@@ -247,6 +259,7 @@ td strong{display:block;font-size:12px;margin-bottom:3px}
     <button class="nav" data-page="listings">⌂ Les annonces</button>
     <button class="nav" data-page="add">＋ Publier un bien</button>
     <button class="nav" data-page="requests">✉ Demandes clients</button>
+     <button class="nav" data-page="stories">◉ Publications 24 h</button>
   </nav>
 
   <main class="page">
@@ -463,6 +476,57 @@ td strong{display:block;font-size:12px;margin-bottom:3px}
       </form>
     </section>
 
+
+    <!-- PUBLICATIONS TEMPORAIRES -->
+    <section id="page-stories" class="hidden">
+      <div class="page-head">
+        <div>
+          <h1>Publications temporaires</h1>
+          <p>Publie des photos ou de courtes vidéos visibles pendant 24 heures.</p>
+        </div>
+      </div>
+
+      <form class="panel" id="storyForm">
+        <h2>Créer une publication</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="storyTitle">Titre *</label>
+            <input id="storyTitle" required maxlength="100" placeholder="Ex. : Inspiration villa">
+          </div>
+          <div class="field">
+            <label for="storyType">Type de média *</label>
+            <select id="storyType">
+              <option value="image">Photo immobilière</option>
+              <option value="video">Vidéo courte</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="storyCaptionInput">Texte de la publication</label>
+            <textarea id="storyCaptionInput" maxlength="800" placeholder="Conseil, offre ou informations sur le bien…"></textarea>
+          </div>
+          <div class="field full">
+            <label for="storyFile">Photo ou vidéo *</label>
+            <input id="storyFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime" required>
+            <p class="note">Photo : 5 Mo maximum. Vidéo : 25 Mo maximum. Publie uniquement des informations exactes pour les biens réellement disponibles.</p>
+            <div id="storyPreview" class="previews"></div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn primary" id="publishStoryBtn" type="submit">Publier pendant 24 h</button>
+        </div>
+        <div id="storyMsg" class="status hidden"></div>
+      </form>
+
+      <div class="panel">
+        <h2>Publications récentes</h2>
+        <p class="desc">Les publications expirées ne sont plus visibles sur la page client. Elles restent dans cette liste jusqu’à suppression manuelle.</p>
+        <div id="adminStories" class="story-admin-grid"><div class="empty">Chargement…</div></div>
+        <div class="form-actions">
+          <button class="btn outline" id="refreshStories" type="button">Actualiser les publications</button>
+        </div>
+      </div>
+    </section>
+
     <!-- DEMANDES CLIENTS -->
     <section id="page-requests" class="hidden">
       <div class="page-head">
@@ -641,7 +705,7 @@ db.auth.onAuthStateChange(async (event, session) => {
 ========================================= */
 
 function go(page) {
-  ["dashboard", "listings", "add", "requests"].forEach(name => {
+  ["dashboard", "listings", "add", "requests", "stories"].forEach(name => {
     $("#page-" + name).classList.toggle("hidden", name !== page);
   });
 
@@ -652,6 +716,7 @@ function go(page) {
   if (page === "dashboard") renderDashboard();
   if (page === "listings") renderTable();
   if (page === "requests") loadRequests();
+  if (page === "stories") loadAdminStories();
 
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -1078,6 +1143,188 @@ async function removeListing(id) {
   toast("Annonce supprimée.");
   await loadListings();
 }
+
+
+/* =========================================
+   PUBLICATIONS TEMPORAIRES DE 24 HEURES
+========================================= */
+
+async function uploadStoryMedia(file, mediaType) {
+  const maxBytes = mediaType === "video" ? 25 * 1024 * 1024 : 5 * 1024 * 1024;
+  if (mediaType === "video" && !file.type.startsWith("video/")) {
+    throw new Error("Choisis un fichier vidéo.");
+  }
+  if (mediaType === "image" && !file.type.startsWith("image/")) {
+    throw new Error("Choisis une image.");
+  }
+  if (file.size > maxBytes) {
+    throw new Error(mediaType === "video" ? "La vidéo dépasse 25 Mo." : "La photo dépasse 5 Mo.");
+  }
+
+  const extension = (file.name.split(".").pop() || (mediaType === "video" ? "mp4" : "jpg"))
+    .toLowerCase().replace(/[^a-z0-9]/g, "");
+  const path = crypto.randomUUID() + "." + extension;
+
+  const { error } = await db.storage
+    .from("property-stories")
+    .upload(path, file, { upsert: false, contentType: file.type });
+
+  if (error) throw error;
+
+  const { data } = db.storage.from("property-stories").getPublicUrl(path);
+  return data.publicUrl;
+}
+
+$("#storyFile").addEventListener("change", () => {
+  const file = $("#storyFile").files[0];
+  const preview = $("#storyPreview");
+  if (!file) {
+    preview.innerHTML = "";
+    return;
+  }
+
+  const url = URL.createObjectURL(file);
+  preview.innerHTML = file.type.startsWith("video/")
+    ? `<video controls src="${url}" style="max-width:260px;max-height:170px;border-radius:8px"></video>`
+    : `<img src="${url}" alt="Aperçu de la publication">`;
+});
+
+$("#storyType").addEventListener("change", () => {
+  $("#storyFile").value = "";
+  $("#storyPreview").innerHTML = "";
+  $("#storyFile").accept = $("#storyType").value === "video"
+    ? "video/mp4,video/webm,video/quicktime"
+    : "image/jpeg,image/png,image/webp,image/gif";
+});
+
+$("#storyForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  if (!currentUser || currentUser.email?.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    toast("Connecte-toi avec le compte administrateur.");
+    return;
+  }
+
+  const button = $("#publishStoryBtn");
+  button.disabled = true;
+  $("#storyMsg").classList.add("hidden");
+
+  try {
+    const file = $("#storyFile").files[0];
+    if (!file) throw new Error("Sélectionne une photo ou une vidéo.");
+
+    const mediaType = $("#storyType").value;
+    const mediaUrl = await uploadStoryMedia(file, mediaType);
+    const now = new Date();
+
+    const payload = {
+      title: $("#storyTitle").value.trim(),
+      caption: $("#storyCaptionInput").value.trim(),
+      media_url: mediaUrl,
+      media_type: mediaType,
+      created_at: now.toISOString(),
+      expires_at: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString()
+    };
+
+    const { error } = await db.from("story_posts").insert(payload);
+    if (error) throw error;
+
+    $("#storyMsg").textContent = "Publication mise en ligne. Elle sera masquée de la page client après 24 heures.";
+    $("#storyMsg").classList.remove("hidden");
+    $("#storyForm").reset();
+    $("#storyPreview").innerHTML = "";
+    $("#storyFile").accept = "image/jpeg,image/png,image/webp,image/gif";
+    await loadAdminStories();
+    toast("Publication publiée pour 24 heures.");
+  } catch (error) {
+    console.error(error);
+    $("#storyMsg").textContent = "Publication impossible : " + (error.message || "erreur Supabase");
+    $("#storyMsg").classList.remove("hidden");
+    toast("Échec de la publication.");
+  } finally {
+    button.disabled = false;
+  }
+});
+
+async function loadAdminStories() {
+  const container = $("#adminStories");
+  if (!container) return;
+  container.innerHTML = '<div class="empty">Chargement des publications…</div>';
+
+  const { data, error } = await db
+    .from("story_posts")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    console.error(error);
+    container.innerHTML = `<div class="empty">Impossible de charger les publications : ${esc(error.message)}. Vérifie que le SQL a été exécuté.</div>`;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    container.innerHTML = '<div class="empty">Aucune publication pour le moment.</div>';
+    return;
+  }
+
+  container.innerHTML = data.map(story => {
+    const expired = new Date(story.expires_at).getTime() <= Date.now();
+    const media = story.media_type === "video"
+      ? `<video controls preload="metadata" src="${esc(story.media_url)}"></video>`
+      : `<img loading="lazy" src="${esc(story.media_url)}" alt="">`;
+    return `
+      <article class="story-admin-card">
+        ${media}
+        <div class="itembody">
+          <h3>${esc(story.title)}</h3>
+          <p>${esc(story.caption || "")}</p>
+          <span class="story-status ${expired ? "expired" : "active"}">${expired ? "Expirée — masquée du site" : "Active — visible sur le site"}</span>
+          <p>Publié : ${esc(new Date(story.created_at).toLocaleString("fr-FR"))}<br>
+          Expire : ${esc(new Date(story.expires_at).toLocaleString("fr-FR"))}</p>
+          <button class="btn danger" type="button" data-delete-story="${esc(story.id)}">Supprimer</button>
+        </div>
+      </article>`;
+  }).join("");
+
+  $$("[data-delete-story]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const id = button.dataset.deleteStory;
+      if (!confirm("Supprimer définitivement cette publication ?")) return;
+
+      const { data: story, error: readError } = await db
+        .from("story_posts").select("media_url").eq("id", id).maybeSingle();
+      if (readError) {
+        toast("Lecture impossible : " + readError.message);
+        return;
+      }
+
+      const { error: deleteError } = await db.from("story_posts").delete().eq("id", id);
+      if (deleteError) {
+        toast("Suppression impossible : " + deleteError.message);
+        return;
+      }
+
+      if (story?.media_url) {
+        try {
+          const marker = "/storage/v1/object/public/property-stories/";
+          const path = new URL(story.media_url).pathname.split(marker)[1];
+          if (path) {
+            const { error: storageError } = await db.storage.from("property-stories").remove([decodeURIComponent(path)]);
+            if (storageError) console.warn("Média non supprimé du stockage :", storageError.message);
+          }
+        } catch (e) {
+          console.warn("Nettoyage du média ignoré :", e);
+        }
+      }
+
+      toast("Publication supprimée.");
+      await loadAdminStories();
+    });
+  });
+}
+
+$("#refreshStories").addEventListener("click", loadAdminStories);
 
 /* =========================================
    DEMANDES CLIENTS
