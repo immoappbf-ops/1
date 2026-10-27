@@ -58,38 +58,41 @@
       z-index: 20;
     }
 .logo {
-  width: 160px;
-  height: 125px;
-  max-width: 42vw;
+  width: 280px !important;
+  height: 210px !important;
+  max-width: 68vw !important;
   object-fit: contain;
   object-position: left center;
   border-radius: 8px;
-  flex: 0 0 auto;
+  flex: 0 1 auto;
 }
 
-/* Ajustement de l'en-tête pour laisser plus de place au logo */
+/* En-tête nettement plus grand pour rendre le logo très visible */
 header {
-  min-height: 145px;
+  min-height: 230px;
+  padding: 12px 18px;
+  gap: 14px;
 }
 
-/* Sur téléphone, le logo reste grand sans pousser WhatsApp hors de l'écran */
+/* Adaptation mobile : logo très grand, bouton WhatsApp conservé */
 @media (max-width: 480px) {
   header {
-    min-height: 115px;
+    min-height: 190px;
     padding: 8px 10px;
-    gap: 8px;
+    gap: 6px;
   }
 
   .logo {
-    width: 125px;
-    height: 100px;
-    max-width: 45vw;
+    width: 220px !important;
+    height: 165px !important;
+    max-width: 66vw !important;
   }
 
   .header-whatsapp {
-    padding: 8px 9px;
-    font-size: 12px;
-    gap: 5px;
+    padding: 7px 8px;
+    font-size: 11px;
+    gap: 4px;
+    flex-shrink: 0;
   }
 }
 ```
