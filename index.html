@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#16834a">
+  <meta name="theme-color" content="#12304a">
   <meta name="description" content="42 Services Immobilier : découvrez des maisons, appartements, terrains et locaux à vendre ou à louer au Burkina Faso.">
   <title>42 Services Immobilier</title>
 
   <style>
     :root {
-      --green: #16834a;
-      --green-dark: #0d6637;
-      --green-light: #e8f6ed;
+      --green: #087f8c;
+      --green-dark: #075766;
+      --green-light: #e5f6f7;
       --white: #ffffff;
-      --background: #f5f7f6;
-      --text: #17231b;
-      --muted: #68766d;
-      --border: #e2e9e4;
+      --background: #f4f7fb;
+      --text: #172b3a;
+      --muted: #667786;
+      --border: #dce5ec;
       --red: #e64747;
-      --shadow: 0 5px 18px rgba(0, 0, 0, .07);
+      --navy: #12304a;
+      --orange: #f29f3d;
+      --shadow: 0 7px 22px rgba(18, 48, 74, .09);
     }
 
     * {
@@ -44,37 +46,45 @@
 
     header {
       background: var(--white);
-      padding: 14px 16px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 3px 14px rgba(18,48,74,.05);
       position: sticky;
       top: 0;
       z-index: 20;
     }
 
     .logo {
-      width: 48px;
-      height: 48px;
+      width: 70px;
+      height: 56px;
       object-fit: contain;
-      border-radius: 10px;
+      border-radius: 8px;
+      flex: 0 0 auto;
     }
 
-    .brand {
-      flex: 1;
+    .header-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 9px 13px;
+      border: 0;
+      border-radius: 12px;
+      background: #128c7e;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(18,140,126,.18);
+      white-space: nowrap;
     }
 
-    .brand h1 {
-      font-size: 18px;
-      color: var(--green);
-    }
-
-    .brand p {
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 4px;
-    }
+    .header-whatsapp span { font-size: 18px; }
 
     .container {
       width: 100%;
@@ -84,7 +94,7 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, #0d6637, #21a45d);
+      background: linear-gradient(135deg, #12304a, #087f8c);
       color: white;
       border-radius: 18px;
       padding: 28px 20px;
@@ -281,8 +291,12 @@
     }
 
     .contact-button {
-      background: var(--green);
+      background: var(--navy);
       color: white;
+    }
+
+    .header-whatsapp:active, .contact-button:active, .primary-button:active {
+      transform: translateY(1px);
     }
 
     .empty {
@@ -514,10 +528,10 @@
   <header>
     <img class="logo" src="logo.jpg" alt="Logo 42 Services Immobilier"
       onerror="this.style.display='none'">
-    <div class="brand">
-      <h1>42 Services Immobilier</h1>
-      <p>Votre partenaire immobilier au Burkina Faso</p>
-    </div>
+    <a class="header-whatsapp" href="https://wa.me/22677328569?text=Bonjour%2042%20Services%20Immobilier%2C%20je%20souhaite%20des%20informations."
+       target="_blank" rel="noopener noreferrer" aria-label="Contacter 42 Services Immobilier sur WhatsApp">
+      <span>☏</span> WhatsApp
+    </a>
   </header>
 
   <main class="container">
@@ -584,6 +598,13 @@
           <label for="cityFilter">Ville</label>
           <select id="cityFilter">
             <option value="">Toutes les villes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="neighborhoodFilter">Quartier</label>
+          <select id="neighborhoodFilter">
+            <option value="">Tous les quartiers</option>
           </select>
         </div>
 
@@ -890,6 +911,7 @@
       properties = (data || []).map(mapProperty);
 
       populateCities();
+      populateNeighborhoods();
       renderAll();
 
       if (properties.length === 0) {
@@ -906,6 +928,7 @@
       const deal = $("dealFilter").value;
       const type = $("typeFilter").value;
       const city = $("cityFilter").value;
+      const neighborhood = $("neighborhoodFilter").value;
 
       return properties.filter(property => {
         const searchableText = [
@@ -922,6 +945,7 @@
         if (deal && property.deal !== deal) return false;
         if (type && String(property.type).toLowerCase() !== type.toLowerCase()) return false;
         if (city && property.city !== city) return false;
+        if (neighborhood && property.neighborhood !== neighborhood) return false;
 
         if (
           selectedCategory &&
@@ -952,6 +976,29 @@
       if (cities.includes(selected)) {
         select.value = selected;
       }
+    }
+
+    function populateNeighborhoods() {
+      const select = $("neighborhoodFilter");
+      const selected = select.value;
+      const chosenCity = $("cityFilter").value;
+
+      const neighborhoods = [...new Set(
+        properties
+          .filter(p => !chosenCity || p.city === chosenCity)
+          .map(p => p.neighborhood)
+          .filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, "fr"));
+
+      select.innerHTML = '<option value="">Tous les quartiers</option>';
+      neighborhoods.forEach(neighborhood => {
+        const option = document.createElement("option");
+        option.value = neighborhood;
+        option.textContent = neighborhood;
+        select.appendChild(option);
+      });
+
+      if (neighborhoods.includes(selected)) select.value = selected;
     }
 
     // ============================================
@@ -1008,8 +1055,8 @@
               </button>
 
               <button class="contact-button"
-                onclick="contactProperty('${escapeHTML(property.id)}')">
-                Contacter
+                onclick="openProperty('${escapeHTML(property.id)}')">
+                Demander
               </button>
             </div>
 
@@ -1301,6 +1348,9 @@
         "Téléphone : " + phone + "\n" +
         "Annonce : " + property.title + "\n" +
         "Prix : " + formatMoney(property.price, property.unit || "") + "\n" +
+        "Ville : " + (property.city || "Non précisée") + "\n" +
+        "Quartier : " + (property.neighborhood || "Non précisé") + "\n" +
+        (property.image ? "Photo de l'annonce : " + property.image + "\n" : "") +
         "Message : " + (message || "Je souhaite plus d'informations.");
 
       const button = $("requestForm").querySelector('button[type="submit"]');
@@ -1319,12 +1369,11 @@
 
       if (saved) {
         showToast("Demande enregistrée. Ouverture de WhatsApp…");
+        window.open(whatsappURL(fullMessage), "_blank", "noopener");
+        closeModal();
       } else {
-        showToast("WhatsApp va s'ouvrir. L'enregistrement en ligne a échoué.");
+        showToast("Échec de l'enregistrement. Réessaie avant d'ouvrir WhatsApp.");
       }
-
-      window.open(whatsappURL(fullMessage), "_blank", "noopener");
-      closeModal();
     });
 
     $("contactForm").addEventListener("submit", async event => {
@@ -1363,26 +1412,27 @@
 
       if (saved) {
         showToast("Demande enregistrée. Ouverture de WhatsApp…");
+        window.open(whatsappURL(fullMessage), "_blank", "noopener");
+        $("contactForm").reset();
       } else {
-        showToast("WhatsApp va s'ouvrir, mais la sauvegarde a échoué.");
+        showToast("Échec de l'enregistrement. Réessaie avant d'ouvrir WhatsApp.");
       }
-
-      window.open(whatsappURL(fullMessage), "_blank", "noopener");
-      $("contactForm").reset();
     });
 
     // ============================================
     // FILTRES EN TEMPS RÉEL
     // ============================================
 
-    ["searchInput", "dealFilter", "typeFilter", "cityFilter"].forEach(id => {
+    ["searchInput", "dealFilter", "typeFilter", "cityFilter", "neighborhoodFilter"].forEach(id => {
       $(id).addEventListener("input", () => {
         selectedCategory = "";
+        if (id === "cityFilter") populateNeighborhoods();
         renderAll();
       });
 
       $(id).addEventListener("change", () => {
         selectedCategory = "";
+        if (id === "cityFilter") populateNeighborhoods();
         renderAll();
       });
     });
